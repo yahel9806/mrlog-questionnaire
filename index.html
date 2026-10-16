@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e2740">
+<meta name="description" content="שאלון אבחון מרלו״ג – מילוי ושליחה מקוונת">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="שאלון מרלו״ג">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/icon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>911 | שאלון אבחון מרלו״ג</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Rubik:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0e2740; --navy2:#16395c; --ink:#1d2b3a; --muted:#5e6d7d; --line:#d9e0e8;
+  --bg:#eef2f6; --card:#ffffff; --orange:#ff7a1a; --orange2:#ffb066; --teal:#1a9c8c;
+  --kraft:#c9a06a; --kraft2:#f4e7d3; --red:#d6453d; --yellow:#ffc531; --green:#2e9d5b;
+  --r:16px; --shadow:0 10px 30px -12px rgba(14,39,64,.25), 0 2px 6px rgba(14,39,64,.06);
+  --font:"Heebo","Rubik","Segoe UI","Arial Hebrew",Arial,sans-serif;
+  --head:"Rubik","Heebo","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{overflow-x:clip}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  background-image:linear-gradient(rgba(14,39,64,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(14,39,64,.035) 1px,transparent 1px);
+  background-size:28px 28px;line-height:1.55;font-size:16px}
+svg.ic{width:1.2em;height:1.2em;vertical-align:-.22em;flex:none}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.hero{position:relative;overflow:hidden;color:#fff;
+  background:radial-gradient(1200px 400px at 85% -10%,#24527f 0%,transparent 60%),linear-gradient(135deg,#0b2036 0%,#0e2740 45%,#163d63 100%)}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:10px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 14px,#1b1b1b 14px 28px)}
+.hero-in{max-width:1280px;margin:0 auto;padding:28px 24px 34px;display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:54px;height:54px;border-radius:12px;background:var(--orange);display:grid;place-items:center;font:800 20px/1 var(--head);color:#0e2740;box-shadow:inset 0 -4px 0 rgba(0,0,0,.15)}
+.brand small{display:block;opacity:.7;font-size:13px;letter-spacing:.04em}
+.brand b{font:700 15px var(--head)}
+.hero h1{font:800 clamp(28px,4vw,46px)/1.1 var(--head);margin:0 0 10px}
+.hero h1 .tag{color:var(--orange)}
+.meeting{display:inline-flex;flex-wrap:wrap;gap:8px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:8px 14px;border-radius:999px;font-size:14.5px;margin-bottom:12px}
+.hero p.note{margin:0;opacity:.85;max-width:56ch}
+.hero-stats{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.hstat{background:rgba(255,255,255,.07);border:1px dashed rgba(255,255,255,.28);border-radius:12px;padding:8px 14px;min-width:96px}
+.hstat b{display:block;font:800 24px/1.1 var(--head);color:var(--orange2)}
+.hstat span{font-size:13px;opacity:.8}
+.hero-art{width:100%;height:auto;max-height:250px}
+.routebar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);box-shadow:0 6px 18px -14px rgba(14,39,64,.5)}
+.rb-in{max-width:1280px;margin:0 auto;padding:10px 24px 8px;display:flex;gap:18px;align-items:center}
+.rb-meta{flex:none;min-width:140px}
+.rb-meta b{font:800 22px/1 var(--head);color:var(--navy)}
+.rb-meta span{display:block;font-size:12.5px;color:var(--muted)}
+.road-wrap{flex:1;min-width:0;padding:0 34px}
+.road{position:relative;height:46px}
+.road .asphalt{position:absolute;top:24px;right:0;left:0;height:12px;border-radius:8px;background:#2b3a4a}
+.road .asphalt::after{content:"";position:absolute;top:5px;right:8px;left:8px;height:2px;background:repeating-linear-gradient(90deg,#fff 0 10px,transparent 10px 20px);opacity:.75}
+.road .done{position:absolute;top:24px;right:0;height:12px;border-radius:8px;width:0;background:linear-gradient(270deg,var(--orange),var(--yellow));transition:width .6s cubic-bezier(.3,.8,.3,1)}
+.stop{position:absolute;top:22px;width:16px;height:16px;margin-right:-8px;border-radius:50%;background:#fff;border:3px solid #8796a6;padding:0;transition:transform .15s;z-index:2}
+.stop:hover{transform:scale(1.35)}
+.stop.part{border-color:var(--orange)}
+.stop.full{border-color:var(--green);background:var(--green)}
+.stop.cur{box-shadow:0 0 0 4px rgba(255,122,26,.35)}
+.stop .tip{position:absolute;top:20px;right:50%;transform:translateX(50%);white-space:nowrap;background:var(--navy);color:#fff;font-size:12px;padding:3px 8px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .15s}
+.stop:hover .tip,.stop:focus-visible .tip{opacity:1}
+.road .depot,.road .finish{position:absolute;top:14px;width:28px;height:28px;color:var(--navy)}
+.road .depot{right:-34px}.road .finish{left:-34px;color:var(--orange)}
+.truck{position:absolute;top:-2px;width:54px;height:31px;margin-right:-27px;transition:right .6s cubic-bezier(.3,.8,.3,1);filter:drop-shadow(0 3px 3px rgba(0,0,0,.25));z-index:3;pointer-events:none}
+.truck svg{width:100%;height:100%}
+.rb-actions{display:flex;gap:8px;flex:none;align-items:center}
+.saved{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.saved i{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block}
+.saved.busy i{background:var(--orange)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:11px;padding:10px 16px;font-weight:700;font-size:14.5px;background:var(--navy);color:#fff;transition:transform .1s,box-shadow .2s,background .2s;white-space:nowrap;text-decoration:none}
+.btn:hover{background:var(--navy2);box-shadow:0 6px 16px -8px rgba(14,39,64,.6)}
+.btn:active{transform:translateY(1px)}
+.btn.or{background:var(--orange);color:#1c1206}.btn.or:hover{background:#ff8c38}
+.btn.gh{background:#fff;color:var(--navy);border:1.5px solid var(--line)}.btn.gh:hover{border-color:var(--navy)}
+.btn.sm{padding:7px 12px;font-size:13.5px;border-radius:9px}
+.btn.danger{background:#fff;color:var(--red);border:1.5px solid #f0c9c6}
+.menu-btn{display:none!important}
+.layout{max-width:1280px;margin:0 auto;padding:24px;display:grid;grid-template-columns:290px 1fr;gap:24px;align-items:start}
+aside.nav{position:sticky;top:86px;max-height:calc(100vh - 100px);overflow:auto;background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:12px}
+.nav h4{margin:6px 8px 10px;font:700 13px var(--head);color:var(--muted);letter-spacing:.06em}
+.nav ol{list-style:none;margin:0;padding:0}
+.nav li button{width:100%;display:flex;align-items:center;gap:10px;border:0;background:none;text-align:right;padding:8px 9px;border-radius:10px;font-size:14px}
+.nav li button:hover{background:#f2f5f9}
+.nav li button.cur{background:var(--navy);color:#fff}
+.nav li button.cur .cnt{color:#cfe0f2}
+.nav .ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;background:#eef3f8;color:var(--navy);flex:none}
+.nav li button.cur .ico{background:var(--orange);color:#1c1206}
+.nav .ttl{flex:1;line-height:1.25}
+.nav .cnt{font-size:12px;color:var(--muted);white-space:nowrap}
+.nav .mini{display:block;height:3px;border-radius:3px;background:#e5eaf0;margin-top:4px;overflow:hidden}
+.nav .mini i{display:block;height:100%;background:var(--orange);width:0}
+.nav li button.cur .mini{background:rgba(255,255,255,.2)}
+.nav .sep{height:1px;background:var(--line);margin:8px 6px}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 40px 10px 14px;background:#fff}
+.search input:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,122,26,.15)}
+.search svg{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.toggle{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:8px 12px;font-size:14px;user-select:none;cursor:pointer}
+.toggle input{accent-color:var(--orange);width:17px;height:17px}
+.step{display:none}
+.step.show{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec-head{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--navy),#1b4670);color:#fff;border-radius:var(--r);padding:22px 24px;margin-bottom:18px;display:flex;gap:18px;align-items:center;box-shadow:var(--shadow)}
+.sec-head::before{content:"";position:absolute;left:-30px;bottom:-40px;width:220px;height:140px;opacity:.1;background:repeating-linear-gradient(90deg,#fff 0 6px,transparent 6px 14px);border-radius:10px;transform:rotate(-8deg)}
+.sec-icon{width:66px;height:66px;border-radius:16px;background:var(--orange);color:#1c1206;display:grid;place-items:center;flex:none;box-shadow:inset 0 -5px 0 rgba(0,0,0,.14)}
+.sec-icon svg{width:38px;height:38px}
+.sec-head .kick{font-size:13px;letter-spacing:.08em;opacity:.75;font-weight:500}
+.sec-head h2{margin:2px 0 6px;font:800 clamp(22px,2.6vw,30px)/1.15 var(--head)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-size:12.5px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:3px 10px}
+.sec-prog{margin-inline-start:auto;text-align:center;flex:none}
+.ring{width:70px;height:70px}
+.ring text{font:800 15px var(--head);fill:#fff}
+.ring .rg{transition:stroke-dashoffset .5s}
+.qcard{position:relative;background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);margin-bottom:16px;overflow:hidden;border-inline-start:6px solid var(--kraft)}
+.qcard.core{border-inline-start-color:var(--orange)}
+.label-top{display:flex;align-items:center;gap:10px;padding:10px 18px;background:var(--kraft2);border-bottom:2px dashed #e0cfb5;font-size:13px}
+.qcard.core .label-top{background:#fff1e6;border-bottom-color:#ffd2ad}
+.trk{font:700 14px "Rubik Mono One","Courier New",monospace;letter-spacing:.06em;color:var(--navy);direction:ltr}
+.badge{font-weight:700;font-size:12px;border-radius:6px;padding:2px 9px;background:#fff;border:1.5px solid var(--kraft);color:#7a5a2c}
+.badge.core{background:var(--orange);border-color:var(--orange);color:#1c1206}
+.barcode{margin-inline-start:auto;height:26px;direction:ltr}
+.barcode svg{height:26px;display:block}
+.qbody{padding:16px 18px 18px}
+.qtext{margin:0 0 10px;font:700 18px/1.45 var(--head);color:var(--navy);padding-inline-end:70px}
+.hint{display:flex;gap:9px;align-items:flex-start;background:#f3f7fb;border:1px solid #dfe8f1;border-radius:10px;padding:9px 12px;font-size:14px;color:#33475b;margin-bottom:12px}
+.hint svg{color:var(--teal);margin-top:2px}
+.hint b{color:var(--navy);font-weight:700}
+.fl{display:block;font-size:13px;font-weight:700;color:var(--muted);margin:0 0 5px}
+textarea,input[type=text],input[type=email],input[type=date],select{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;background:#fbfcfe;transition:border .15s,box-shadow .15s}
+textarea{resize:vertical;min-height:84px}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--orange);background:#fff;box-shadow:0 0 0 4px rgba(255,122,26,.14)}
+.status{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0 4px;border:0;padding:0}
+.status legend{font-size:13px;font-weight:700;color:var(--muted);margin-bottom:6px;padding:0}
+.status label{position:relative}
+.status input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.status span{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13.5px;cursor:pointer;transition:all .15s}
+.status span::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--c,#9aa7b4)}
+.status input:checked+span{background:var(--c,#9aa7b4);border-color:var(--c,#9aa7b4);color:#fff;font-weight:700}
+.status input:checked+span::before{background:#fff}
+.status input:focus-visible+span{box-shadow:0 0 0 3px rgba(255,122,26,.35)}
+details.more{margin-top:12px;border:1.5px dashed var(--line);border-radius:12px;background:#fcfdfe}
+details.more summary{cursor:pointer;padding:9px 14px;font-size:14px;font-weight:700;color:var(--navy2);list-style:none;display:flex;align-items:center;gap:8px}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"＋";margin-inline-start:auto;color:var(--orange);font-weight:800}
+details.more[open] summary::after{content:"－"}
+details.more .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);display:none}
+details.more.has .dot{display:inline-block}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:4px 14px 14px}
+.grid .full{grid-column:1/-1}
+.grid textarea{min-height:64px}
+.stamp{position:absolute;left:18px;top:50px;transform:rotate(-12deg);border:3px solid var(--green);color:var(--green);border-radius:8px;font:800 13px var(--head);padding:2px 10px;letter-spacing:.08em;opacity:0;transition:opacity .25s;pointer-events:none;background:rgba(255,255,255,.8)}
+.qcard.ans .stamp{opacity:.9}
+.hidden{display:none!important}
+.empty{background:#fff;border-radius:var(--r);padding:30px;text-align:center;color:var(--muted);box-shadow:var(--shadow)}
+.search-sec{font:800 18px var(--head);color:var(--navy);margin:22px 4px 10px;display:flex;align-items:center;gap:8px}
+.panel{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);padding:22px;margin-bottom:18px}
+.panel h3{margin:0 0 14px;font:800 20px var(--head);color:var(--navy);display:flex;gap:10px;align-items:center}
+.panel h3 svg{color:var(--orange);width:26px;height:26px}
+.guide{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.g-item{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;background:#fbfcfe}
+.g-item b{display:block;font:700 15px var(--head);color:var(--navy);margin-bottom:4px}
+.g-item b::before{content:attr(data-n);display:inline-grid;place-items:center;width:22px;height:22px;border-radius:6px;background:var(--navy);color:#fff;font-size:12px;margin-inline-end:8px}
+.g-item p{margin:0;font-size:14.5px;color:#3b4c5e}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mapt{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px}
+.mapt th{background:var(--navy);color:#fff;text-align:right;padding:9px 12px;font-weight:700}
+.mapt th:first-child{border-radius:0 10px 0 0}.mapt th:last-child{border-radius:10px 0 0 0}
+.mapt td{padding:8px 12px;border-bottom:1px solid var(--line)}
+.mapt td svg{color:var(--orange)}
+.mapt tbody tr:hover td{background:#f6f9fc;cursor:pointer}
+.mapt tfoot td{font-weight:800;background:#fff1e6}
+.src{font-size:13.5px;color:var(--muted);margin:12px 0 0}
+.src b{color:var(--ink)}
+.obs{border:1.5px solid var(--line);border-radius:14px;margin-bottom:12px;background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+.obs-h{display:flex;align-items:center;gap:10px;padding:8px 14px;background:#f3f7fb;border-bottom:1.5px dashed var(--line)}
+.obs-h .num{font:700 13px "Rubik Mono One","Courier New",monospace;color:var(--navy)}
+.obs-h .x{margin-inline-start:auto;background:none;border:0;color:var(--red);padding:4px}
+.obs .grid{padding:12px 14px 14px;grid-template-columns:repeat(3,1fr)}
+.obs .grid .w2{grid-column:span 2}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.kpi{background:#fff;border-radius:14px;box-shadow:var(--shadow);padding:14px 16px;border-top:4px solid var(--orange)}
+.kpi b{display:block;font:800 28px var(--head);color:var(--navy)}
+.kpi span{font-size:13.5px;color:var(--muted)}
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:240px 1fr 70px;gap:10px;align-items:center;font-size:14px;cursor:pointer}
+.bar svg{color:var(--orange)}
+.bar .t{height:12px;border-radius:8px;background:#e7ecf2;overflow:hidden;position:relative}
+.bar .t i{position:absolute;top:0;bottom:0;right:0;background:linear-gradient(270deg,var(--orange),var(--yellow));border-radius:8px}
+.send-row{display:flex;gap:10px;flex-wrap:wrap}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.pager .btn{padding:12px 20px}
+.modal{position:fixed;inset:0;background:rgba(9,22,36,.55);display:none;place-items:center;z-index:80;padding:16px}
+.modal.open{display:grid}
+.dlg{background:#fff;border-radius:18px;max-width:520px;width:100%;padding:22px;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);position:relative;overflow:hidden}
+.dlg::before{content:"";position:absolute;top:0;right:0;left:0;height:7px;background:repeating-linear-gradient(-45deg,var(--yellow) 0 12px,#1b1b1b 12px 24px)}
+.dlg h3{margin:6px 0 6px;font:800 21px var(--head);color:var(--navy)}
+.dlg p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.opt{display:flex;gap:14px;align-items:center;width:100%;text-align:right;border:1.5px solid var(--line);background:#fbfcfe;border-radius:14px;padding:14px;margin-bottom:10px}
+.opt:hover{border-color:var(--orange);background:#fff8f2}
+.opt .oi{width:46px;height:46px;border-radius:12px;background:var(--navy);color:#fff;display:grid;place-items:center;flex:none}
+.opt .oi svg{width:26px;height:26px}
+.opt b{display:block;font:700 16px var(--head);color:var(--navy)}
+.opt small{color:var(--muted);font-size:13px}
+.dlg .close{position:absolute;left:12px;top:14px;border:0;background:none;font-size:24px;color:var(--muted)}
+.toast{position:fixed;bottom:22px;right:50%;transform:translateX(50%) translateY(140px);background:var(--navy);color:#fff;padding:12px 18px;border-radius:12px;z-index:90;box-shadow:var(--shadow);transition:transform .3s;max-width:90vw;font-size:14.5px}
+.toast.on{transform:translateX(50%) translateY(0)}
+.overlay{display:none}
+#printView{display:none}
+@media (max-width:1000px){
+  .hero-in{grid-template-columns:1fr}
+  .hero-art{max-height:170px}
+  .layout{grid-template-columns:1fr;padding:16px}
+  aside.nav{position:fixed;top:0;bottom:0;right:0;width:min(86vw,330px);max-height:none;z-index:70;border-radius:0;transform:translateX(105%);visibility:hidden;transition:transform .25s,visibility .25s}
+  aside.nav.open{transform:none;visibility:visible}
+  .stop .tip{display:none}
+  .stop{width:11px;height:11px;margin-right:-5.5px;top:24.5px;border-width:2px}
+  .overlay.open{display:block;position:fixed;inset:0;background:rgba(9,22,36,.45);z-index:60}
+  .menu-btn{display:inline-flex!important}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .form-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:680px){
+  body{font-size:15.5px}
+  .hero-in{padding:20px 16px 26px}
+  .hero-art{display:none}
+  .rb-in{flex-wrap:wrap;padding:8px 14px;gap:6px 10px}
+  .rb-meta{order:1;min-width:0}
+  .rb-actions{order:2;margin-inline-start:auto}
+  .rb-actions .lbl{display:none}
+  .road-wrap{order:3;flex-basis:100%;padding:0 34px}
+  .saved{display:none}
+  .grid,.obs .grid,.form-grid{grid-template-columns:1fr}
+  .obs .grid .w2{grid-column:auto}
+  .sec-head{padding:16px;gap:12px}
+  .sec-icon{width:50px;height:50px}.sec-icon svg{width:28px;height:28px}
+  .sec-prog,.barcode{display:none}
+  .qtext{font-size:16.5px;padding-inline-end:0}
+  .stamp{top:8px;left:12px;transform:rotate(-6deg)}
+  .bar{grid-template-columns:1fr 60px}.bar .t{grid-column:1/-1;order:3}
+  .pager .btn{flex:1;justify-content:center}
+  .kpi b{font-size:22px}
+}
+@media print{
+  @page{size:A4;margin:14mm 12mm}
+  body{background:#fff;font-size:10.5pt}
+  body>*:not(#printView){display:none!important}
+  #printView{display:block!important;color:#000}
+  .pv-head{display:flex;align-items:center;gap:12px;border-bottom:3px solid #0e2740;padding-bottom:8px;margin-bottom:8px}
+  .pv-head .bm{width:40px;height:40px;border-radius:8px;background:#ff7a1a;display:grid;place-items:center;font:800 15px var(--head);color:#0e2740;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-head h1{font:800 19pt var(--head);margin:0}
+  .pv-meta{font-size:9.5pt;color:#333;margin:0 0 10px}
+  .pv-det{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 16px;font-size:9.5pt;border:1px solid #bbb;border-radius:6px;padding:8px 10px;margin-bottom:12px}
+  .pv-sec{margin-top:14px}
+  .pv-sec h2{font:800 13pt var(--head);background:#0e2740;color:#fff;padding:5px 10px;border-radius:5px;margin:0 0 8px;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-after:avoid}
+  .pv-q{border:1px solid #c9c9c9;border-radius:6px;padding:7px 10px;margin-bottom:7px;break-inside:avoid}
+  .pv-q .h{display:flex;gap:8px;align-items:baseline;font-weight:700}
+  .pv-q .h .id{font-family:"Courier New",monospace;color:#0e2740;direction:ltr}
+  .pv-q .h .ty{font-size:8.5pt;border:1px solid #999;border-radius:4px;padding:0 5px;font-weight:400;white-space:nowrap}
+  .pv-q .h .st{margin-inline-start:auto;font-size:8.5pt;font-weight:700;white-space:nowrap}
+  .pv-q .ph{font-size:8.5pt;color:#555;margin:2px 0 4px}
+  .pv-q .ans{white-space:pre-wrap;border-top:1px dashed #bbb;padding-top:4px;min-height:1.4em}
+  .pv-q .ans.noans{min-height:3.4em}
+  .pv-q .ext{font-size:8.5pt;color:#333;margin-top:4px;display:grid;grid-template-columns:1fr 1fr;gap:2px 14px}
+  .pv-q .ext div{white-space:pre-wrap}
+  table.pv-obs{width:100%;border-collapse:collapse;font-size:8.5pt}
+  table.pv-obs th,table.pv-obs td{border:1px solid #bbb;padding:4px 5px;text-align:right;vertical-align:top}
+  table.pv-obs th{background:#eee;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pv-foot{margin-top:14px;font-size:8.5pt;color:#666;border-top:1px solid #ccc;padding-top:6px}
+}
+.btn.send{background:linear-gradient(135deg,#2e9d5b,#1f7d46);color:#fff;box-shadow:0 8px 20px -10px rgba(46,157,91,.8)}
+.btn.send:hover{background:linear-gradient(135deg,#34ad65,#23894d)}
+.btn.big{padding:14px 26px;font-size:17px;border-radius:14px}
+.submit-panel{background:linear-gradient(135deg,#0e2740,#1b4670);color:#fff;border-radius:var(--r);padding:22px;margin-bottom:18px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;box-shadow:var(--shadow)}
+.submit-panel h3{margin:0 0 4px;font:800 21px var(--head)}
+.submit-panel p{margin:0;opacity:.85;font-size:14.5px}
+.submit-panel .btn{margin-inline-start:auto}
+.submitted-note{background:#e8f6ee;border:1.5px solid #9fd9b6;color:#1d6b3f;border-radius:12px;padding:10px 14px;font-size:14px;margin-bottom:14px;display:none}
+.submitted-note.on{display:block}
+.req{color:var(--red)}
+.field-err{border-color:var(--red)!important;box-shadow:0 0 0 4px rgba(214,69,61,.15)!important}
+.dlg .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.dlg .sumline{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.dlg .sumline span{background:#f3f7fb;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px}
+.dlg .acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start;margin-top:6px}
+.send-anim{display:none;text-align:center;padding:12px 0}
+.send-anim.on{display:block}
+.send-anim .lane{position:relative;height:44px;border-bottom:4px dashed #c9d3de;margin:8px 10px 12px;overflow:hidden}
+.send-anim .lane svg{position:absolute;bottom:2px;width:64px;height:37px;animation:drive 1.6s linear infinite}
+@keyframes drive{from{right:-70px}to{right:110%}}
+.done-ico{width:74px;height:74px;border-radius:50%;background:#2e9d5b;color:#fff;display:grid;place-items:center;margin:8px auto 10px;font-size:40px;font-weight:800}
+#installBtn{display:none}
+#installBtn.on{display:inline-flex}
+@media (max-width:680px){ .dlg .row{grid-template-columns:1fr} .submit-panel .btn{width:100%;justify-content:center} #sendTop .lbl{display:inline} }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <defs>
+  <symbol id="i-warehouse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 21V9l10-6 10 6v12"/><path d="M6 21v-8h12v8"/><path d="M6 16h12M6 19h12"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17h6V6H1v11h2"/><path d="M15 9h4l3 4v4h-2"/><circle cx="6" cy="17.5" r="2"/><circle cx="17.5" cy="17.5" r="2"/></symbol>
+  <symbol id="i-container" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"/><path d="M6 9v6M10 9v6M14 9v6M18 9v6"/></symbol>
+  <symbol id="i-pallet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="8" height="7"/><rect x="13" y="9" width="8" height="7"/><rect x="8" y="3" width="8" height="6"/><path d="M2 16h20M2 20h20M4 16v4M12 16v4M20 16v4"/></symbol>
+  <symbol id="i-store" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l2-5h14l2 5"/><path d="M3 9c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3c0 1.7 1.3 3 3 3s3-1.3 3-3"/><path d="M5 12v9h14v-9"/><path d="M10 21v-5h4v5"/></symbol>
+  <symbol id="i-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h3l2.5 12h11L21 7H6.2"/><circle cx="9" cy="19.5" r="1.6"/><circle cx="17" cy="19.5" r="1.6"/><path d="M11 10h6"/></symbol>
+  <symbol id="i-online" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="10" height="18" rx="2"/><path d="M6 18h2"/><path d="M14 10l4-2 4 2v6l-4 2-4-2z"/><path d="M14 10l4 2 4-2M18 12v6"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/><path d="M7.5 5l9 4"/></symbol>
+  <symbol id="i-return" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8l7-4 8 4v8l-8 4-7-4z"/><path d="M7 8l7 4 8-4M14 12v8"/><path d="M5 18a4 4 0 0 1-3-4"/><path d="M1 16l1-2.5 2.5 1"/></symbol>
+  <symbol id="i-tools" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9z"/></symbol>
+  <symbol id="i-shelf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v20M21 2v20M3 8h18M3 15h18M3 21h18"/><rect x="6" y="4" width="5" height="4"/><rect x="13" y="10.5" width="5" height="4.5"/><rect x="6" y="17" width="4" height="4"/></symbol>
+  <symbol id="i-barcode" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6v12M8 6v12M11 6v12M13 6v12M16 6v12M19 6v12"/><path d="M2 8V4h4M18 4h4v4M2 16v4h4M18 20h4v-4"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="13" rx="2"/><path d="M8 21h8M12 16v5"/><path d="M6 12l3-3 3 2 5-5"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9a4 4 0 0 1 8 0z"/><path d="M4 9h10"/><circle cx="9" cy="12" r="2.6"/><path d="M3 21a6 6 0 0 1 12 0"/><circle cx="17" cy="10" r="2.3"/><path d="M16 15.2a5 5 0 0 1 6 4.8"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-brief" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M2 13h20M11 13v2h2v-2"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/><path d="M12 12l7-7M17 5h2v2"/></symbol>
+  <symbol id="i-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2l3 6M17 2l-3 6"/><circle cx="12" cy="14" r="6"/><path d="M12 11l1 2 2 .3-1.5 1.4.4 2.1-1.9-1-1.9 1 .4-2.1L9 13.3l2-.3z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 8l4 4 3-2 6 6"/><path d="M16 16h4v-4"/></symbol>
+  <symbol id="i-forklift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17V8h5l3 5v4"/><path d="M2 12h8"/><path d="M14 3v15h8"/><circle cx="5" cy="18.5" r="2"/><circle cx="11" cy="18.5" r="1.5"/><rect x="16" y="10" width="5" height="5"/></symbol>
+  <symbol id="i-coins" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="6" rx="6" ry="3"/><path d="M3 6v4c0 1.7 2.7 3 6 3s6-1.3 6-3V6"/><path d="M3 10v4c0 1.7 2.7 3 6 3"/><ellipse cx="16" cy="15" rx="5" ry="2.5"/><path d="M11 15v3.5c0 1.4 2.2 2.5 5 2.5s5-1.1 5-2.5V15"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V3"/><path d="M4 4h14l-3 4.5L18 13H4"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="18" rx="2"/><path d="M9 2h6v4H9z"/><path d="M8.5 12h7M8.5 16h5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-route" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="5" r="2.5"/><path d="M7.5 19H16a3.5 3.5 0 0 0 0-7H8a3.5 3.5 0 0 1 0-7h8.5" stroke-dasharray="2 2.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 7l10 7 10-7"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7"/><rect x="2" y="9" width="20" height="9" rx="2"/><path d="M6 14h12v8H6z"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 15h10l1-15"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h4"/></symbol>
+  <symbol id="truck-side" viewBox="0 0 104 60">
+   <rect x="34" y="6" width="68" height="38" rx="3" fill="#ff7a1a"/>
+   <rect x="34" y="6" width="68" height="7" rx="3" fill="#ffa15c"/>
+   <path d="M44 16v22M54 16v22M64 16v22M74 16v22M84 16v22M94 16v22" stroke="#e0620a" stroke-width="2"/>
+   <path d="M4 44V28l8-14h20v30z" fill="#0e2740"/>
+   <path d="M9 28l6-10h11v10z" fill="#9fd3ff"/>
+   <rect x="2" y="38" width="6" height="4" rx="1" fill="#ffc531"/>
+   <rect x="2" y="44" width="100" height="5" fill="#1b2633"/>
+   <circle cx="18" cy="50" r="7" fill="#1b2633"/><circle cx="18" cy="50" r="3" fill="#c7d0da"/>
+   <circle cx="74" cy="50" r="7" fill="#1b2633"/><circle cx="74" cy="50" r="3" fill="#c7d0da"/>
+   <circle cx="90" cy="50" r="7" fill="#1b2633"/><circle cx="90" cy="50" r="3" fill="#c7d0da"/>
+  </symbol>
+ </defs>
+</svg>
+
+<header class="hero">
+ <div class="hero-in">
+  <div>
+   <div class="brand"><div class="brand-mark">911</div><div><b>שאלון אבחון מרלו״ג</b><small>קליטה ← אחסנה ← חלוקה ← הפצה ← החזרות</small></div></div>
+   <h1 id="hTitle"></h1>
+   <div class="meeting"><svg class="ic"><use href="#i-pin"/></svg><span id="hMeeting"></span></div>
+   <p class="note" id="hNote"></p>
+   <div class="hero-stats">
+    <div class="hstat"><b id="hsQ">0</b><span>שאלות</span></div>
+    <div class="hstat"><b id="hsS">0</b><span>תחנות / תחומים</span></div>
+    <div class="hstat"><b id="hsC">0</b><span>שאלות ליבה</span></div>
+   </div>
+  </div>
+  <svg class="hero-art" viewBox="0 0 600 260" role="img" aria-label="איור מרכז לוגיסטי">
+   <path d="M40 70 C 140 10, 250 110, 340 50 S 520 30, 570 80" fill="none" stroke="#ffb066" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+   <g fill="#ff7a1a"><circle cx="40" cy="70" r="7"/><circle cx="340" cy="50" r="7"/></g>
+   <g transform="translate(556 52)"><path d="M14 30s12-10 12-19a12 12 0 0 0-24 0c0 9 12 19 12 19z" fill="#ff7a1a"/><circle cx="14" cy="11" r="4.5" fill="#0e2740"/></g>
+   <g transform="translate(330 92)">
+    <path d="M0 50 L120 6 L240 50 V160 H0 Z" fill="#1f4a75"/>
+    <path d="M0 50 L120 6 L240 50" fill="none" stroke="#ff7a1a" stroke-width="5" stroke-linejoin="round"/>
+    <rect x="20" y="70" width="60" height="90" fill="#0b2036"/><rect x="90" y="70" width="60" height="90" fill="#0b2036"/><rect x="160" y="70" width="60" height="90" fill="#0b2036"/>
+    <g stroke="#2d5c88" stroke-width="2"><path d="M20 82h60M20 94h60M20 106h60M90 82h60M90 94h60M160 82h60M160 94h60M160 106h60M160 118h60"/></g>
+    <rect x="160" y="126" width="60" height="34" fill="#ffc531" opacity=".25"/>
+    <text x="120" y="44" text-anchor="middle" font-family="Rubik,Heebo,Arial" font-weight="800" font-size="16" fill="#fff">מרלו״ג</text>
+    <g transform="translate(96 132)"><rect x="0" y="0" width="22" height="18" fill="#c9a06a"/><rect x="24" y="4" width="22" height="14" fill="#e0b981"/><path d="M11 0v18M35 4v14" stroke="#a37c47" stroke-width="2"/><rect x="0" y="18" width="48" height="5" fill="#8a6a3e"/><rect x="2" y="23" width="6" height="5" fill="#8a6a3e"/><rect x="21" y="23" width="6" height="5" fill="#8a6a3e"/><rect x="40" y="23" width="6" height="5" fill="#8a6a3e"/></g>
+   </g>
+   <g transform="translate(150 150)">
+    <rect x="0" y="62" width="120" height="40" fill="#1a9c8c"/><path d="M12 68v28M24 68v28M36 68v28M48 68v28M60 68v28M72 68v28M84 68v28M96 68v28M108 68v28" stroke="#127567" stroke-width="3"/>
+    <rect x="20" y="22" width="120" height="40" fill="#d6453d"/><path d="M32 28v28M44 28v28M56 28v28M68 28v28M80 28v28M92 28v28M104 28v28M116 28v28M128 28v28" stroke="#a8312b" stroke-width="3"/>
+    <rect x="40" y="-18" width="100" height="40" fill="#ffc531"/><path d="M52 -12v28M64 -12v28M76 -12v28M88 -12v28M100 -12v28M112 -12v28M124 -12v28" stroke="#d9a314" stroke-width="3"/>
+   </g>
+   <g transform="translate(26 182) scale(1.15)"><use href="#truck-side" width="104" height="60"/></g>
+   <rect x="0" y="252" width="600" height="4" fill="#ffffff" opacity=".18"/>
+   <g transform="translate(36 108)">
+    <rect width="96" height="50" rx="6" fill="#fff"/>
+    <g fill="#0e2740"><rect x="8" y="8" width="2" height="24"/><rect x="12" y="8" width="4" height="24"/><rect x="18" y="8" width="1.5" height="24"/><rect x="22" y="8" width="3" height="24"/><rect x="27" y="8" width="2" height="24"/><rect x="31" y="8" width="5" height="24"/><rect x="38" y="8" width="1.5" height="24"/><rect x="42" y="8" width="3" height="24"/><rect x="47" y="8" width="2" height="24"/><rect x="51" y="8" width="4" height="24"/><rect x="57" y="8" width="1.5" height="24"/><rect x="61" y="8" width="3" height="24"/><rect x="66" y="8" width="2" height="24"/><rect x="70" y="8" width="5" height="24"/><rect x="77" y="8" width="2" height="24"/><rect x="81" y="8" width="3" height="24"/><rect x="86" y="8" width="2" height="24"/></g>
+    <text x="48" y="44" text-anchor="middle" font-family="Courier New,monospace" font-size="8" font-weight="700" fill="#0e2740">MRLG-911-ASHDOD</text>
+   </g>
+  </svg>
+ </div>
+</header>
+
+<div class="routebar">
+ <div class="rb-in">
+  <button class="btn gh sm menu-btn" id="menuBtn" aria-label="תחנות"><svg class="ic"><use href="#i-menu"/></svg></button>
+  <div class="rb-meta"><b id="pPct">0%</b><span id="pTxt"></span></div>
+  <div class="road-wrap">
+   <div class="road" id="road" aria-label="מסלול התקדמות">
+    <svg class="depot" aria-hidden="true"><use href="#i-warehouse"/></svg>
+    <div class="asphalt"></div><div class="done" id="roadDone"></div>
+    <div id="stops"></div>
+    <div class="truck" id="truck"><svg viewBox="0 0 104 60"><use href="#truck-side"/></svg></div>
+    <svg class="finish" aria-hidden="true"><use href="#i-flag"/></svg>
+   </div>
+  </div>
+  <div class="rb-actions">
+   <span class="saved" id="saved"><i></i><span>שמירה אוטומטית</span></span>
+   <button class="btn or sm" id="dlBtn"><svg class="ic"><use href="#i-down"/></svg><span class="lbl">הורדת תשובות</span></button>
+   <button class="btn gh sm" id="installBtn" title="התקנה כאפליקציה"><svg class="ic"><use href="#i-down"/></svg><span class="lbl">התקנה</span></button>
+   <button class="btn send sm" id="sendTop"><svg class="ic"><use href="#i-mail"/></svg><span class="lbl">שליחת השאלון</span></button>
+  </div>
+ </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<div class="layout">
+ <aside class="nav" id="nav"><h4>מסלול התחנות</h4><ol id="navList"></ol></aside>
+ <main id="main">
+  <div class="tools" id="tools">
+   <div class="search"><svg class="ic"><use href="#i-search"/></svg><input type="search" id="q" placeholder="חיפוש בכל השאלות (מילה, נושא או מספר כמו Q042)…" aria-label="חיפוש"></div>
+   <label class="toggle"><input type="checkbox" id="fCore"> ליבה בלבד</label>
+   <label class="toggle"><input type="checkbox" id="fOpen"> רק שטרם נענו</label>
+  </div>
+  <div id="stage"></div>
+  <div class="pager" id="pager">
+   <button class="btn gh" id="prevBtn">→ התחנה הקודמת</button>
+   <button class="btn or" id="nextBtn">התחנה הבאה ←</button>
+  </div>
+ </main>
+</div>
+
+<div class="modal" id="dlModal" role="dialog" aria-modal="true" aria-labelledby="dlT">
+ <div class="dlg">
+  <button class="close" data-close aria-label="סגירה">×</button>
+  <h3 id="dlT">הורדת התשובות</h3>
+  <p>בחרו פורמט. כל התשובות נשמרות גם בדפדפן הזה באופן אוטומטי.</p>
+  <button class="opt" id="optCsv"><span class="oi"><svg><use href="#i-sheet"/></svg></span><span><b>קובץ CSV לאקסל</b><small>כל השאלות והעמודות כמו בגיליון המקורי + יומן התצפיות. נפתח בעברית תקינה באקסל.</small></span></button>
+  <button class="opt" id="optPdf"><span class="oi"><svg><use href="#i-print"/></svg></span><span><b>תצוגת הדפסה / PDF</b><small>מסמך מסודר להדפסה. בחלון ההדפסה בחרו "שמירה כ־PDF".</small></span></button>
+  <button class="opt" id="optBoth"><span class="oi" style="background:var(--orange);color:#1c1206"><svg><use href="#i-down"/></svg></span><span><b>שניהם</b><small>מוריד CSV ופותח מיד את תצוגת ההדפסה.</small></span></button>
+  <label class="toggle" style="margin-top:4px"><input type="checkbox" id="pvOnly"> בהדפסה: להציג רק שאלות שנענו</label>
+ </div>
+</div>
+
+<div class="modal" id="sendModal" role="dialog" aria-modal="true" aria-labelledby="sendT">
+ <div class="dlg">
+  <button class="close" data-close aria-label="סגירה">×</button>
+  <div id="sendForm">
+   <h3 id="sendT">שליחת השאלון</h3>
+   <p>התשובות יישלחו ישירות לצוות 911, בלי צורך בתוכנת מייל. אפשר להמשיך לעדכן ולשלוח שוב בכל עת.</p>
+   <div class="sumline" id="sendSum"></div>
+   <div class="row">
+    <label><span class="fl">שם החברה / האתר <span class="req">*</span></span><input type="text" id="sCompany"></label>
+    <label><span class="fl">שם הממלא/ת <span class="req">*</span></span><input type="text" id="sFiller"></label>
+    <label><span class="fl">תפקיד</span><input type="text" id="sRole"></label>
+    <label><span class="fl">דוא״ל לחזרה (לא חובה)</span><input type="email" id="sEmail" dir="ltr" style="text-align:right"></label>
+   </div>
+   <label class="toggle" style="margin-bottom:12px"><input type="checkbox" id="sCsv" checked> לצרף גם קובץ CSV מלא</label>
+   <div class="acts"><button class="btn send big" id="sendGo"><svg class="ic"><use href="#i-mail"/></svg> שליחה עכשיו</button><button class="btn gh" data-close>ביטול</button></div>
+  </div>
+  <div class="send-anim" id="sendBusy"><div class="lane"><svg viewBox="0 0 104 60"><use href="#truck-side"/></svg></div><b>המשלוח בדרך…</b></div>
+  <div class="send-anim" id="sendOk"><div class="done-ico">✓</div><h3>השאלון נשלח בהצלחה</h3><p id="sendOkTxt">תודה! התשובות התקבלו. ניתן להוריד עותק לשמירה.</p>
+   <div class="acts" style="justify-content:center"><button class="btn gh" data-act="csv">הורדת CSV</button><button class="btn gh" data-act="pdf">PDF / הדפסה</button><button class="btn" data-close>סגירה</button></div></div>
+  <div class="send-anim" id="sendErr"><div class="done-ico" style="background:var(--red)">!</div><h3>השליחה לא הושלמה</h3><p id="sendErrTxt"></p>
+   <div class="acts" style="justify-content:center"><button class="btn send" id="sendRetry">ניסיון נוסף</button><button class="btn gh" data-act="csv">הורדת CSV</button><button class="btn gh" data-act="mail">שליחה דרך תוכנת מייל</button></div></div>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<div id="printView"></div>
+<script>
+const DATA = {"meta": {"title": "911 | שאלון אבחון מרלו״ג", "meeting": "פגישה: 14.10.2026, 09:30 | אמיר — סמנכ״ל לוגיסטיקה | צביקה", "note": "סנן ליבה לביקור הראשון; תשובות ונתונים יתועדו ללא הנחות מוקדמות.", "headers": ["מספר", "תחום", "סוג שאלה", "שאלה", "תשובה / הסבר", "נתון או הדגמה לבקש", "משיב / תאריך", "מקור / קובץ / דוגמה", "רמת אימות", "תצפית / פער", "שאלת המשך / פעולה", "מצב", "אחראי להשלמה"], "guideTitle": "איך לעבוד עם השאלון", "guide": [["מטרה", "סיור והיכרות עם פעולות הליבה, תיעוד הסברים ובדיקת הפער בין דרישה לביצוע."], ["סדר הביקור", "קליטה → אחסנה → חלוקה ראשונית → השלמות → בקרה והפצה → החזרות; מערכת, צוות וניהול בהמשך."], ["ביקור ראשון", "סנן בעמודת סוג שאלה לערך ליבה. שאלות ההעמקה מיועדות לבירור לפי מה שיתגלה ולהמשך התהליך."], ["כתיבת תשובות", "מלא את עמודת תשובה / הסבר. בעמודות האחרות תעד משיב, מקור, רמת אימות, פער ושאלת המשך."], ["נתון או הדגמה", "זהו מידע מוצע לבקשה, לא נתון שקיים בהכרח. בקש דוגמה ממשית; מידע שלא זמין יסומן כממתין לנתון."], ["אימות", "הפרד בין דיווח, תצפית ונתון. אל תסמן טענה כממצא מאומת ללא תמיכה מתאימה."], ["יעד ותפוקה", "תעד יחידת מדידה, תקופה, ערוץ, תמהיל ושעות עבודה. השווה צורך וביצוע באותה יחידה ובאותה תקופה."], ["שאלות שאינן חלות", "למשל אונליין אם אינו מטופל כאן: בחר לא רלוונטי והסבר בקצרה."], ["תצפיות ומעקב", "רשום תצפית או פעולה אחת בכל שורה וקשר למספר שאלה קבוע. אין בתבנית תשובות או מסקנות מוכנות."], ["סיכום", "הגדר פערים, השערות לבירור, נתונים חסרים וצעדי המשך מוסכמים. אין צורך להספיק את כל השאלות בפגישה אחת."]], "source": [["מקור התוכן", "שאלון עבודה שנבנה לפי התהליכים שצביקה הגדיר בשיחה; אינו כולל נתוני חברה מאומתים."], ["הקשר מקצועי", "ייעוץ ראשוני לתהליכים ולביצוע. הערכות אישיות שנמסרו בשיחה אינן מופיעות כממצאים בקובץ."]], "status": ["טרם נשאל", "נענה", "נענה חלקית", "ממתין לנתון", "לא רלוונטי"], "verify": ["דיווח בלבד", "נצפה בשטח", "נתמך בנתון", "נתמך בדיווח ובנתון", "טעון בירור"], "obsTitle": "תצפיות, בקשות נתונים ופעולות המשך", "obsNote": "תעד אירוע אחד בכל שורה; השתמש במספר שאלה כדי לקשר לתשובה הרלוונטית.", "obsHeaders": ["מספר", "שאלה מקושרת", "תחום", "סוג רישום", "תיאור / פעולה", "מקור / ראיה", "מה עדיין חסר", "אחראי", "מועד להשלמה", "מצב", "תוצאה / עדכון"], "obsTypes": ["תצפית", "בקשת נתונים", "השערה לבדיקה", "פעולה מוסכמת", "שאלה פתוחה"], "obsStatus": ["פתוח", "בטיפול", "ממתין", "הושלם", "בוטל"], "sections": ["תמונה כללית ומעבר לאשדוד", "קליטת סחורה חדשה", "אחסנה וסידור מלאי", "חלוקה ראשונית לחנויות", "ליקוט השלמות לחנויות", "אונליין וערוצי שירות נוספים", "בקרה אריזה והכנה להפצה", "הפצה ומסירה לחנויות", "קליטת החזרות", "טיפול בסחורה שחוזרת", "אחסנת החזרות והשבה למכירה", "דיוק מלאי וספירות", "מערכת WMS וממשקים", "כוח אדם ומבנה ארגוני", "שגרת יום ושעות פעילות", "שגרת המנהלים וסמכויות", "יעדי מרלו״ג וקיבולת", "יעדים אישיים והדרכה", "ממשק מסחרי ופגיעה במכירות", "תשתיות ציוד וזרימה בשטח", "עלויות תכנון ושיפור", "סיכום הביקור והמשך"], "sheetNames": ["שאלון ותשובות", "הנחיות ומפת נושאים", "תצפיות ומעקב"]}, "qs": [{"id": "Q001", "domain": "תמונה כללית ומעבר לאשדוד", "type": "ליבה", "q": "אילו ערוצים, מותגים וחנויות המרלו״ג משרת ומה היקף הפעילות בכל ערוץ?", "hint": "מפת לקוחות וערוצים; נפחי פעילות", "status": "טרם נשאל"}, {"id": "Q002", "domain": "תמונה כללית ומעבר לאשדוד", "type": "ליבה", "q": "מהו הפער המרכזי בין מה שנדרש מהמרלו״ג לבין מה שהוא מבצע כיום?", "hint": "דוגמה מהשבוע האחרון; דרישה מול ביצוע", "status": "טרם נשאל"}, {"id": "Q003", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "מה היו מטרות המעבר לאשדוד ואילו מהן הושגו?", "hint": "תוכנית מעבר ומדדי לפני ואחרי", "status": "טרם נשאל"}, {"id": "Q004", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "אילו תהליכים השתנו במעבר ואילו נשארו כפי שהיו?", "hint": "מפת תהליכים לפני ואחרי", "status": "טרם נשאל"}, {"id": "Q005", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "מה השתנה בשנה האחרונה בכמות החנויות, המותגים וההזמנות?", "hint": "נתוני צמיחה חודשיים", "status": "טרם נשאל"}, {"id": "Q006", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "מהם שלושת הקשיים המרכזיים לפי אמיר ולפי מנהל המחסן?", "hint": "הסבר ודוגמאות מכל אחד", "status": "טרם נשאל"}, {"id": "Q007", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "אילו חלקים בפעילות מתפקדים היטב ומה מאפשר זאת?", "hint": "תצפית בתהליך מוצלח", "status": "טרם נשאל"}, {"id": "Q008", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "האם נשארו משימות או תקלות פתוחות מפרויקט המעבר?", "hint": "רשימת משימות מעבר פתוחות", "status": "טרם נשאל"}, {"id": "Q009", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "כיצד השתנתה התפוקה לאחר המעבר ולאחר הטמעת ה־WMS בנפרד?", "hint": "סדרת נתונים ותאריכי שינויים", "status": "טרם נשאל"}, {"id": "Q010", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "אילו מגבלות שאינן בשליטת המרלו״ג משפיעות על הביצוע?", "hint": "דוגמאות ותלויות בגורמי חוץ", "status": "טרם נשאל"}, {"id": "Q011", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "מה כבר נעשה לשיפור ומה הייתה התוצאה של כל שינוי?", "hint": "תוכנית, תאריך ותוצאות", "status": "טרם נשאל"}, {"id": "Q012", "domain": "תמונה כללית ומעבר לאשדוד", "type": "העמקה", "q": "מה ייחשב בעיניכם הצלחה של הביקור ושל תהליך המשך?", "hint": "ציפיות ותוצר רצוי", "status": "טרם נשאל"}, {"id": "Q013", "domain": "קליטת סחורה חדשה", "type": "ליבה", "q": "תוכל להראות מסלול של משלוח מההגעה ועד שהמלאי זמין לליקוט?", "hint": "משלוח ממשי; חותמות זמן בכל שלב", "status": "טרם נשאל"}, {"id": "Q014", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "כיצד מתקבלת הודעה מוקדמת על משלוח ומה רמת הדיוק שלה?", "hint": "ASN או תעודת משלוח מול קבלה", "status": "טרם נשאל"}, {"id": "Q015", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "מי מתאם מועדי הגעה וכיצד מתוכננים רציפים וכוח אדם?", "hint": "יומן הגעות ותכנון עובדים", "status": "טרם נשאל"}, {"id": "Q016", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "כמה משלוחים, קרטונים ויחידות נקלטים ביום רגיל וביום עומס?", "hint": "דוח קליטה לפי יום וסוג מטען", "status": "טרם נשאל"}, {"id": "Q017", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "איך מקצים עדיפות בין סחורה חדשה, משלוחים דחופים והחזרות?", "hint": "כללי תעדוף ודוגמה", "status": "טרם נשאל"}, {"id": "Q018", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "איך נבדקים כמויות, דגמים, צבעים ומידות מול ההזמנה?", "hint": "הדגמת בדיקה ותיעוד הפרש", "status": "טרם נשאל"}, {"id": "Q019", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "האם הברקודים מגיעים תקינים ומוגדרים לפני הגעת הסחורה?", "hint": "דוגמאות לפריטים חדשים ושגיאות", "status": "טרם נשאל"}, {"id": "Q020", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "איזה טיפול נדרש לפני אחסון: תמחור, מדבקות, זמזמים או אריזה?", "hint": "זמן עבודה לכל פעילות", "status": "טרם נשאל"}, {"id": "Q021", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "כיצד מטופלים עודפים, חוסרים, נזק ופריט לא מזוהה?", "hint": "מסלול חריגה ואחראי סגירה", "status": "טרם נשאל"}, {"id": "Q022", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "מתי הקליטה נרשמת ב־WMS ומתי מועברת למערכת המסחרית?", "hint": "מסכי מערכת וחותמות זמן", "status": "טרם נשאל"}, {"id": "Q023", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "מה זמן ההמתנה לפני פריקה, בדיקה ורישום בכל שלב?", "hint": "דגימת משלוחים אחרונים", "status": "טרם נשאל"}, {"id": "Q024", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "כמה סחורה ממתינה לקליטה ומה גיל המשלוח הוותיק ביותר?", "hint": "תור קליטה לפי גיל", "status": "טרם נשאל"}, {"id": "Q025", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "מה קיבולת אזור הקליטה ומה קורה כשהוא מלא?", "hint": "תצפית וקיבולת עמדות", "status": "טרם נשאל"}, {"id": "Q026", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "האם ניתן להעביר סחורה ישירות לחלוקה ראשונית ללא אחסון ומה התנאים?", "hint": "דוגמת זרימה ישירה והרישום שלה", "status": "טרם נשאל"}, {"id": "Q027", "domain": "קליטת סחורה חדשה", "type": "העמקה", "q": "איזה מדד איכות ותפוקה משמש לקליטה ומי בודק אותו?", "hint": "דוח טעויות ויחידות לשעת עבודה", "status": "טרם נשאל"}, {"id": "Q028", "domain": "אחסנה וסידור מלאי", "type": "ליבה", "q": "איך נקבע איתור לכל פריט ומהו הזמן מקליטה עד אחסון באיתור?", "hint": "הדגמת משימת אחסון ודוח זמני טיפול", "status": "טרם נשאל"}, {"id": "Q029", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "כיצד בנויים אזורי האחסון לפי מותג, קטגוריה וערוץ?", "hint": "מפת מחסן ואיתורים", "status": "טרם נשאל"}, {"id": "Q030", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "האם יש הפרדה בין מלאי רזרבה לבין איתורי ליקוט?", "hint": "תצפית ומדיניות מלאי באיתור", "status": "טרם נשאל"}, {"id": "Q031", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "כיצד מסומנים האיתורים והאם קל לזהות אותם בשטח?", "hint": "בדיקת סימון וסריקת איתור", "status": "טרם נשאל"}, {"id": "Q032", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "האם כל תנועת מלאי מתבצעת בסריקה או שיש העברות ידניות?", "hint": "הדגמת העברה והשוואה לרישום", "status": "טרם נשאל"}, {"id": "Q033", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "מה שיעור התפוסה לפי אזור ומה הקיבולת ביחידות או נפח?", "hint": "תפוסה וקיבולת באותה יחידת מדידה", "status": "טרם נשאל"}, {"id": "Q034", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "היכן נשמר מלאי כשאין מקום באיתור המתוכנן?", "hint": "תצפית על מלאי חריג", "status": "טרם נשאל"}, {"id": "Q035", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "האם פריטים מהירים קרובים לעמדות העבודה וכיצד נבחנת התנועה?", "hint": "דוח מהירות מכר ומפת מיקום", "status": "טרם נשאל"}, {"id": "Q036", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "מה הכלל לערבוב דגמים, צבעים ומידות באותו איתור?", "hint": "הגדרות ודוגמאות איתורים", "status": "טרם נשאל"}, {"id": "Q037", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "באיזו תדירות מבצעים שינוי מיקומים ועל סמך אילו נתונים?", "hint": "תוכנית סידור מחדש", "status": "טרם נשאל"}, {"id": "Q038", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "איך נשמרת נגישות למלאי בשעות ליקוט ועומס?", "hint": "תצפית במסלולי מעבר", "status": "טרם נשאל"}, {"id": "Q039", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "האם קיימת סחורה ללא איתור, ללא תנועה או עם איתור לא תקין?", "hint": "דוח חריגים ומלאי ותיק", "status": "טרם נשאל"}, {"id": "Q040", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "מי אחראי לסדר ולסגירת משימות אחסון שלא בוצעו?", "hint": "רשימת משימות ואחריות", "status": "טרם נשאל"}, {"id": "Q041", "domain": "אחסנה וסידור מלאי", "type": "העמקה", "q": "כמה פעמים נוגעים במוצר בין הקליטה לבין יציאתו?", "hint": "מעקב פיזי אחר פריט", "status": "טרם נשאל"}, {"id": "Q042", "domain": "חלוקה ראשונית לחנויות", "type": "ליבה", "q": "מי קובע את החלוקה הראשונית ומתי ההוראה זמינה למחסן?", "hint": "הוראת חלוקה בפועל וזמן שחרור", "status": "טרם נשאל"}, {"id": "Q043", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "מה קובע תאריך היציאה: השקה, הגעת מלאי או דרישת החנויות?", "hint": "לוח השקות מול משלוחים", "status": "טרם נשאל"}, {"id": "Q044", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "מה מאפיין הזמנת חלוקה: כמות חנויות, שורות ויחידות לשורה?", "hint": "דגימת הזמנות חלוקה", "status": "טרם נשאל"}, {"id": "Q045", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "האם מקבלים חלוקה סופית או שינויים תוך כדי ביצוע?", "hint": "היסטוריית שינוי הזמנה", "status": "טרם נשאל"}, {"id": "Q046", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "איך מוודאים שהמלאי הנדרש כבר נקלט וזמין לפני השחרור?", "hint": "בדיקת זמינות לפני ליקוט", "status": "טרם נשאל"}, {"id": "Q047", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "האם מלקטים לפי חנות, לפי דגם, בגלים או באצוות ומדוע?", "hint": "הדגמת שיטת הליקוט", "status": "טרם נשאל"}, {"id": "Q048", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "כיצד מפרידים וממיינים את הסחורה לחנויות לאחר הליקוט?", "hint": "עמדות מיון ובקרת שיוך", "status": "טרם נשאל"}, {"id": "Q049", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "האם ניתן להשתמש באריזות מקור או מארזי מידות ללא פירוק?", "hint": "דוגמת מארז ותנאי שימוש", "status": "טרם נשאל"}, {"id": "Q050", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "מה קורה כשחלק מהמלאי חסר או לא זמין?", "hint": "דוגמה לחלוקה חלקית", "status": "טרם נשאל"}, {"id": "Q051", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "כיצד מנוהלת קדימות לחלוקה חדשה מול השלמות ואונליין?", "hint": "כללי תעדוף ודוגמת יום עומס", "status": "טרם נשאל"}, {"id": "Q052", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "כמה זמן עובר משחרור החלוקה עד שהמשלוח מוכן?", "hint": "חותמות זמן בכמה חלוקות", "status": "טרם נשאל"}, {"id": "Q053", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "מהן הטעויות הנפוצות בחלוקה וכיצד מזהים אותן?", "hint": "דוח טעויות לפי סוג", "status": "טרם נשאל"}, {"id": "Q054", "domain": "חלוקה ראשונית לחנויות", "type": "העמקה", "q": "מה היקף הפיגור בחלוקות וכיצד מעדכנים את המסחר?", "hint": "דוח חלוקות פתוחות ותכתובת עדכון", "status": "טרם נשאל"}, {"id": "Q055", "domain": "ליקוט השלמות לחנויות", "type": "ליבה", "q": "איך נוצרת דרישת השלמה ומתי היא משתחררת לליקוט?", "hint": "הזמנת השלמה והגדרות שחרור", "status": "טרם נשאל"}, {"id": "Q056", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "האם ההשלמה אוטומטית, ידנית או משולבת ומי מאשר אותה?", "hint": "כללי הזמנה והרשאות", "status": "טרם נשאל"}, {"id": "Q057", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "מה תדירות ההשלמות לכל חנות ומה זמן השירות המצופה?", "hint": "הסכם שירות ולוח חלוקה", "status": "טרם נשאל"}, {"id": "Q058", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "האם יש שעת חיתוך להזמנות והאם מכבדים אותה?", "hint": "זמני קליטת הזמנות מול יציאה", "status": "טרם נשאל"}, {"id": "Q059", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "מה כמות ההזמנות, השורות והיחידות ביום רגיל ובשיא?", "hint": "דוח נפחים לפי יום", "status": "טרם נשאל"}, {"id": "Q060", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "כיצד מתעדפים חוסר במוצר מוביל או במידה מבוקשת?", "hint": "דוגמת דרישה דחופה", "status": "טרם נשאל"}, {"id": "Q061", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "האם יש כללים לגודל הזמנה מינימלי או לאיחוד דרישות?", "hint": "כללים ודוגמאות הזמנות קטנות", "status": "טרם נשאל"}, {"id": "Q062", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "איך נבחר מסלול הליקוט והאם הוא מצמצם הליכה חוזרת?", "hint": "תצפית על מסלול והגדרת WMS", "status": "טרם נשאל"}, {"id": "Q063", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "מה קורה כאשר המלקט אינו מוצא מלאי שהמערכת מציגה?", "hint": "דוגמת חוסר ליקוט ותהליך בירור", "status": "טרם נשאל"}, {"id": "Q064", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "מי מאשר סגירת הזמנה בחוסר או פיצול שלה?", "hint": "הרשאות וכללי טיפול", "status": "טרם נשאל"}, {"id": "Q065", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "כיצד מתבצעות השלמות מלאי מרזרבה לאיתורי הליקוט?", "hint": "משימת השלמה ומועד ביצוע", "status": "טרם נשאל"}, {"id": "Q066", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "כמה זמן עובדים ממתינים להשלמה, ציוד או הוראות?", "hint": "תצפית ודגימת זמני המתנה", "status": "טרם נשאל"}, {"id": "Q067", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "מה התפוקה לשעת עבודה לפי סוג הזמנה ורמת מורכבות?", "hint": "שורות ויחידות לשעה עם הגדרת שעות", "status": "טרם נשאל"}, {"id": "Q068", "domain": "ליקוט השלמות לחנויות", "type": "העמקה", "q": "האם נמדד שיעור מילוי ההזמנה ומה סיבות אי־המילוי?", "hint": "יחידות שסופקו מתוך יחידות שנדרשו", "status": "טרם נשאל"}, {"id": "Q069", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "האם המרלו״ג מטפל באונליין, סיטונאות או הזמנות מיוחדות ובאיזה היקף?", "hint": "אישור תחולה ונפחי ערוצים", "status": "טרם נשאל"}, {"id": "Q070", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "אם יש אונליין, מה התחייבות השירות ושעת החיתוך?", "hint": "התחייבות ללקוח וזמני הזמנות", "status": "טרם נשאל"}, {"id": "Q071", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "האם מלאי אונליין משותף למלאי החנויות וכיצד נמנעת מכירת יתר?", "hint": "כללי הקצאה וסנכרון", "status": "טרם נשאל"}, {"id": "Q072", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "כיצד מתעדפים הזמנות לקוח מול מילוי חנויות?", "hint": "דוגמה לתחרות על מלאי", "status": "טרם נשאל"}, {"id": "Q073", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "האם יש הבדל בציוד ובשיטת הליקוט בין הערוצים?", "hint": "תצפית ומסלולי עבודה", "status": "טרם נשאל"}, {"id": "Q074", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "איך מטפלים בביטול או שינוי הזמנה לאחר תחילת ליקוט?", "hint": "דוגמה וזרימת ביטול", "status": "טרם נשאל"}, {"id": "Q075", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "כיצד נבדקים פריט, מידה, כתובת ומסמכי משלוח?", "hint": "בקרת אריזה ודוגמה", "status": "טרם נשאל"}, {"id": "Q076", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "מה שיעור הזמנות שמתעכבות ומה הסיבות?", "hint": "דוח עיכובים לפי שלב", "status": "טרם נשאל"}, {"id": "Q077", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "איך מעדכנים שירות לקוחות על חוסר או תקלה?", "hint": "ממשק דיווח ותהליך הסלמה", "status": "טרם נשאל"}, {"id": "Q078", "domain": "אונליין וערוצי שירות נוספים", "type": "העמקה", "q": "איך נערכת הפעילות למבצעים ולשיאי ביקוש בכל ערוץ?", "hint": "תחזית וקיבולת מתוכננת", "status": "טרם נשאל"}, {"id": "Q079", "domain": "בקרה אריזה והכנה להפצה", "type": "ליבה", "q": "מה קורה מסיום הליקוט ועד שההזמנה מוכנה להעמסה?", "hint": "מעקב אחר הזמנה וחותמות זמן", "status": "טרם נשאל"}, {"id": "Q080", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "איפה נבדקת התאמה בין ההזמנה לבין התכולה בפועל?", "hint": "הדגמת בקרת פריטים", "status": "טרם נשאל"}, {"id": "Q081", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "האם יש בקרה מלאה או מדגמית ועל סמך מה נקבע ההיקף?", "hint": "מדיניות בדיקה ותוצאות", "status": "טרם נשאל"}, {"id": "Q082", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "כמה עמדות אריזה פעילות ומה קיבולת כל עמדה?", "hint": "תצפית ותפוקה לשעת עמדה", "status": "טרם נשאל"}, {"id": "Q083", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "האם נוצר תור בין ליקוט, בקרה ואריזה ובאילו שעות?", "hint": "צילום מצב תורים וזמני המתנה", "status": "טרם נשאל"}, {"id": "Q084", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "האם מסמכים ותוויות מודפסים אוטומטית או דורשים טיפול ידני?", "hint": "הדגמה ורישום זמן עבודה", "status": "טרם נשאל"}, {"id": "Q085", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "האם יש מחסור בקרטונים, חומרי אריזה, מדפסות או עמדות?", "hint": "רשימת חוסרים והשבתות", "status": "טרם נשאל"}, {"id": "Q086", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "כיצד מזהים קרטון, חנות, הזמנה ומספר קרטונים במשלוח?", "hint": "תווית משלוח וסריקת קרטון", "status": "טרם נשאל"}, {"id": "Q087", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "איך מטופלת טעות שנמצאה בבקרה ומי מחזיר אותה לתהליך?", "hint": "דוגמת תיקון וזמן טיפול", "status": "טרם נשאל"}, {"id": "Q088", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "איך מאורגנים משלוחים מוכנים לפי מסלול ושעת יציאה?", "hint": "תצפית באזור שילוח", "status": "טרם נשאל"}, {"id": "Q089", "domain": "בקרה אריזה והכנה להפצה", "type": "העמקה", "q": "מתי הזמנה מקבלת סטטוס הושלמה והאם הוא משקף יציאה בפועל?", "hint": "השוואת סטטוס להכנה ולהעמסה", "status": "טרם נשאל"}, {"id": "Q090", "domain": "הפצה ומסירה לחנויות", "type": "ליבה", "q": "איך מתוכננת ההפצה וכיצד זמני היציאה משפיעים על תוכנית המחסן?", "hint": "מסלולים, שעות חיתוך וחלונות מסירה", "status": "טרם נשאל"}, {"id": "Q091", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "מי מבצע הפצה ובאילו כלי רכב והיקפי קיבולת?", "hint": "מפת ספקים וכלי רכב", "status": "טרם נשאל"}, {"id": "Q092", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "מה תדירות המסירה לכל חנות ומה חלון הקבלה שלה?", "hint": "לוח הפצה וחלונות חנויות", "status": "טרם נשאל"}, {"id": "Q093", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "כיצד מוודאים שכל הקרטונים הנדרשים הועמסו לרכב הנכון?", "hint": "הדגמת בקרת העמסה", "status": "טרם נשאל"}, {"id": "Q094", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "כמה פעמים רכב יוצא באיחור או ממתין למחסן ומדוע?", "hint": "דוח יציאות והמתנות", "status": "טרם נשאל"}, {"id": "Q095", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "איך מטפלים במשלוח שלא מוכן בזמן למסלול?", "hint": "דוגמת חריגה והחלטה", "status": "טרם נשאל"}, {"id": "Q096", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "האם מבצעים נסיעות מיוחדות ומה הסיבות והעלות שלהן?", "hint": "רשימת נסיעות חריגות", "status": "טרם נשאל"}, {"id": "Q097", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "כיצד מאשרים מסירה וכמות קרטונים בחנות?", "hint": "אישור מסירה וממשק מעקב", "status": "טרם נשאל"}, {"id": "Q098", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "כיצד מבדילים בין איחור מחסן לבין איחור הפצה?", "hint": "חותמות זמן הכנה, יציאה ומסירה", "status": "טרם נשאל"}, {"id": "Q099", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "מי מטפל בחוסר, נזק או סירוב קבלה בחנות?", "hint": "דוגמת אירוע ואחראי", "status": "טרם נשאל"}, {"id": "Q100", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "מהם שיעור אספקה בזמן ושיעור אספקה מלאה לפי חנות?", "hint": "דוח OTIF עם הגדרה ומקור", "status": "טרם נשאל"}, {"id": "Q101", "domain": "הפצה ומסירה לחנויות", "type": "העמקה", "q": "האם המידע על מסירה חוזר למערכת ובאיזה זמן?", "hint": "ממשק מסירה ודוגמת סנכרון", "status": "טרם נשאל"}, {"id": "Q102", "domain": "קליטת החזרות", "type": "ליבה", "q": "איך מגיעה החזרה ומה קורה מההגעה ועד רישום הקבלה?", "hint": "החזרה ממשית ומסמכים", "status": "טרם נשאל"}, {"id": "Q103", "domain": "קליטת החזרות", "type": "העמקה", "q": "מה מקורות ההחזרות: חנויות, אונליין, לקוחות או ספקים?", "hint": "נפחים לפי מקור וסיבה", "status": "טרם נשאל"}, {"id": "Q104", "domain": "קליטת החזרות", "type": "העמקה", "q": "האם נדרש אישור מראש ומה פרטי ההחזרה שהמחסן מקבל?", "hint": "אישור החזרה ופירוט פריטים", "status": "טרם נשאל"}, {"id": "Q105", "domain": "קליטת החזרות", "type": "העמקה", "q": "האם החזרות מתואמות מראש או מגיעות ללא תכנון?", "hint": "יומן החזרות ודוגמאות חריגות", "status": "טרם נשאל"}, {"id": "Q106", "domain": "קליטת החזרות", "type": "העמקה", "q": "מה ההיקף היומי והעונתי של החזרות בקרטונים וביחידות?", "hint": "דוח נפחים והחזרות סוף עונה", "status": "טרם נשאל"}, {"id": "Q107", "domain": "קליטת החזרות", "type": "העמקה", "q": "כיצד מפרידים החזרות מסחורה חדשה באזור הקליטה?", "hint": "תצפית וסימון אזורים", "status": "טרם נשאל"}, {"id": "Q108", "domain": "קליטת החזרות", "type": "העמקה", "q": "איך בודקים תכולה מול תעודת ההחזרה?", "hint": "הדגמת ספירה וסריקה", "status": "טרם נשאל"}, {"id": "Q109", "domain": "קליטת החזרות", "type": "העמקה", "q": "מה קורה כשיש פריט לא מזוהה או חוסר במסמכים?", "hint": "תהליך חריגה ואחראי בירור", "status": "טרם נשאל"}, {"id": "Q110", "domain": "קליטת החזרות", "type": "העמקה", "q": "מתי מאשרים לחנות או ללקוח שההחזרה התקבלה?", "hint": "דוגמת אישור וחותמת זמן", "status": "טרם נשאל"}, {"id": "Q111", "domain": "קליטת החזרות", "type": "העמקה", "q": "מה הפיגור בקליטת החזרות ומה גיל ההחזרה הוותיקה ביותר?", "hint": "תור פתוח לפי גיל", "status": "טרם נשאל"}, {"id": "Q112", "domain": "קליטת החזרות", "type": "העמקה", "q": "האם מזהים סיבת החזרה באופן מובנה?", "hint": "קודי סיבה ואיכות המילוי", "status": "טרם נשאל"}, {"id": "Q113", "domain": "קליטת החזרות", "type": "העמקה", "q": "איך תהליך הקליטה מתחבר לזיכוי ולבקרת הפרשים?", "hint": "מסלול זיכוי ומי מאשר", "status": "טרם נשאל"}, {"id": "Q114", "domain": "טיפול בסחורה שחוזרת", "type": "ליבה", "q": "איך מחליטים אם פריט חוזר למכירה, לתיקון, לספק או לפסילה?", "hint": "עץ החלטה ודוגמת פריט", "status": "טרם נשאל"}, {"id": "Q115", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "מי מוסמך לקבוע את מצב הפריט ואת ההחלטה לגביו?", "hint": "תפקידים והרשאות", "status": "טרם נשאל"}, {"id": "Q116", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "אילו פעולות נדרשות: ניקוי, קיפול, אריזה, תמחור או זמזום?", "hint": "תצפית וזמן לכל פעולה", "status": "טרם נשאל"}, {"id": "Q117", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "איך מפרידים פריטים תקינים, פגומים, חסרים ופריטים בבירור?", "hint": "סימון וסטטוסים", "status": "טרם נשאל"}, {"id": "Q118", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "האם יש הוראות טיפול שונות לביגוד ולהנעלה?", "hint": "הוראות ודוגמאות", "status": "טרם נשאל"}, {"id": "Q119", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "מה זמן הטיפול הממוצע לפי סוג החזרה?", "hint": "דגימת פריטים וחותמות זמן", "status": "טרם נשאל"}, {"id": "Q120", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "כמה עובדים מטפלים בהחזרות ומה קיבולתם?", "hint": "סידור עבודה ותפוקה", "status": "טרם נשאל"}, {"id": "Q121", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "האם יש תור להחלטה ניהולית ומה זמן ההמתנה בו?", "hint": "רשימת פריטים ממתינים להחלטה", "status": "טרם נשאל"}, {"id": "Q122", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "האם מטפלים קודם בפריטים בעלי ביקוש פעיל?", "hint": "כללי תעדוף מול מכירות", "status": "טרם נשאל"}, {"id": "Q123", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "כיצד מתועדת עלות הטיפול ונמדד טיפול חוזר באותו פריט?", "hint": "זמני עבודה ותיעוד תיקונים", "status": "טרם נשאל"}, {"id": "Q124", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "מהם שיעורי החזרה למכירה, החזרה לספק ופסילה?", "hint": "דוח תוצאות טיפול לפי סיבה", "status": "טרם נשאל"}, {"id": "Q125", "domain": "טיפול בסחורה שחוזרת", "type": "העמקה", "q": "מי מאשר גריעה או השמדה וכיצד נשמרת עקיבות?", "hint": "אישור ותנועת מלאי", "status": "טרם נשאל"}, {"id": "Q126", "domain": "אחסנת החזרות והשבה למכירה", "type": "ליבה", "q": "מתי פריט מוחזר חוזר להיות זמין למכירה ולליקוט?", "hint": "חותמות זמן מהגעה עד זמינות", "status": "טרם נשאל"}, {"id": "Q127", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "האם יש אזורים נפרדים לפריטים לפני טיפול ולאחר טיפול?", "hint": "מפת אזורים ותצפית", "status": "טרם נשאל"}, {"id": "Q128", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "מה הסטטוסים ב־WMS לכל מצב של פריט מוחזר?", "hint": "הדגמת סטטוסים", "status": "טרם נשאל"}, {"id": "Q129", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "איך נמנעת מכירת פריט שטרם נבדק או שאינו תקין?", "hint": "חסימות מלאי ובדיקה", "status": "טרם נשאל"}, {"id": "Q130", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "האם החזרות תקינות נשמרות עם המלאי הרגיל או בנפרד ומדוע?", "hint": "מדיניות אחסון ודוגמת איתור", "status": "טרם נשאל"}, {"id": "Q131", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "מי מבצע החזרה לאיתור וכיצד היא מאושרת?", "hint": "משימת אחסון וסריקה", "status": "טרם נשאל"}, {"id": "Q132", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "כמה מלאי מוחזר ממתין להשבה לאיתור ומה גילו?", "hint": "דוח גיל מלאי לפי סטטוס", "status": "טרם נשאל"}, {"id": "Q133", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "האם המערכת מפנה לליקוט ממלאי מוחזר תקין?", "hint": "הגדרות הקצאה ודוגמת הזמנה", "status": "טרם נשאל"}, {"id": "Q134", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "איך מנוהלת סחורה מסוף עונה שאין לה ביקוש פעיל?", "hint": "מדיניות מלאי ותוכנית פינוי", "status": "טרם נשאל"}, {"id": "Q135", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "איך מזוהה סחורה שאושרה למכירה אך נותרה חסומה?", "hint": "דוח סטטוסים חריגים", "status": "טרם נשאל"}, {"id": "Q136", "domain": "אחסנת החזרות והשבה למכירה", "type": "העמקה", "q": "האם ידוע כמה מלאי חוזר תופס מקום ומה השפעתו על הקיבולת?", "hint": "תפוסת החזרות לפי אזור", "status": "טרם נשאל"}, {"id": "Q137", "domain": "דיוק מלאי וספירות", "type": "ליבה", "q": "עד כמה המלאי במערכת תואם לשטח ואיך מודדים זאת?", "hint": "ספירות אחרונות; הגדרת מדד דיוק", "status": "טרם נשאל"}, {"id": "Q138", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "מהם המקורות המרכזיים להפרשי מלאי לפי הבירורים שנעשו?", "hint": "דוח סיבות הפרש", "status": "טרם נשאל"}, {"id": "Q139", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "האם מבצעים ספירות מחזוריות ולפי איזה סדר עדיפות?", "hint": "תוכנית ספירה ודוחות ביצוע", "status": "טרם נשאל"}, {"id": "Q140", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "איך סופרים בזמן פעילות בלי ליצור תנועות כפולות?", "hint": "נוהל הקפאה וטיפול בתנועות", "status": "טרם נשאל"}, {"id": "Q141", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "מי מאשר תיקוני מלאי ומה הבקרות על הרשאות?", "hint": "יומן תיקונים ואישורים", "status": "טרם נשאל"}, {"id": "Q142", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "האם קיימים מלאי שלילי, מלאי חסום או יתרות ללא איתור?", "hint": "דוח חריגים", "status": "טרם נשאל"}, {"id": "Q143", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "איך מתבצע בירור חוסר ליקוט לפני עדכון יתרה?", "hint": "דוגמה להפרש וסגירתו", "status": "טרם נשאל"}, {"id": "Q144", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "האם יש פער בין WMS למערכת המסחרית ומה מקורו?", "hint": "דוח התאמה בין מערכות", "status": "טרם נשאל"}, {"id": "Q145", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "מה שיעור השורות שבהן נדרש חיפוש ידני של סחורה?", "hint": "אירועי חיפוש וזמן שהושקע", "status": "טרם נשאל"}, {"id": "Q146", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "האם מלאי פגום, מוחזר ובהעברה נכלל בזמינות בטעות?", "hint": "בדיקת כללי זמינות", "status": "טרם נשאל"}, {"id": "Q147", "domain": "דיוק מלאי וספירות", "type": "העמקה", "q": "כיצד נשמרת עקיבות של תנועות ומשתמשים?", "hint": "היסטוריית פריט או איתור", "status": "טרם נשאל"}, {"id": "Q148", "domain": "מערכת WMS וממשקים", "type": "ליבה", "q": "איזו מערכת WMS פועלת, אילו תהליכים מנוהלים בה ומה עדיין מחוץ לה?", "hint": "מפת מערכות ותהליכים", "status": "טרם נשאל"}, {"id": "Q149", "domain": "מערכת WMS וממשקים", "type": "ליבה", "q": "תוכל להדגים הזמנה אחת מהרישום ועד הסגירה במערכת?", "hint": "מסלול מלא עם סטטוסים וחותמות זמן", "status": "טרם נשאל"}, {"id": "Q150", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "מי אחראי מקצועית למערכת ומי מטפל בתמיכה ובשינויים?", "hint": "מפת אחריות וספק תמיכה", "status": "טרם נשאל"}, {"id": "Q151", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "מה היו דרישות ההטמעה ואילו יכולות טרם יושמו?", "hint": "מסמך דרישות מול מצב קיים", "status": "טרם נשאל"}, {"id": "Q152", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "כיצד המערכת מתחברת ל־ERP, למסחר, לאונליין ולספקי הפצה?", "hint": "מפת ממשקים ותדירות סנכרון", "status": "טרם נשאל"}, {"id": "Q153", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "אילו תקלות ממשק מתרחשות ובאיזה היקף?", "hint": "יומן תקלות וזמן השבתה", "status": "טרם נשאל"}, {"id": "Q154", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "איך מזהים העברת נתונים שנכשלה ומי מטפל בה?", "hint": "מסך ניטור ותהליך התראה", "status": "טרם נשאל"}, {"id": "Q155", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "איך מוגדרים פריט, ברקוד, צבע, מידה ומארז?", "hint": "דוגמת נתוני אב", "status": "טרם נשאל"}, {"id": "Q156", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "כיצד מטופלים ברקודים חלופיים או כפולים?", "hint": "כללי זיהוי ודוגמאות", "status": "טרם נשאל"}, {"id": "Q157", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "האם המערכת מייצרת משימות אחסון, ליקוט והשלמת רזרבה?", "hint": "הדגמת כל סוג משימה", "status": "טרם נשאל"}, {"id": "Q158", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "האם הגדרות הגלים והתעדוף תואמות את שגרת ההפצה?", "hint": "הגדרות ודוגמה מיום רגיל", "status": "טרם נשאל"}, {"id": "Q159", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "אילו פעולות מתבצעות באקסל, בנייר או בוואטסאפ ומדוע?", "hint": "תצפית ומיפוי עבודה ידנית", "status": "טרם נשאל"}, {"id": "Q160", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "האם עובדים עוקפים את הסריקה ובאילו מצבים?", "hint": "דוגמאות ותנועות ללא סריקה", "status": "טרם נשאל"}, {"id": "Q161", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "האם המסופונים, המדפסות והרשת זמינים לאורך כל היום?", "hint": "מלאי ציוד ויומן תקלות", "status": "טרם נשאל"}, {"id": "Q162", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "כמה זמן אובד בגלל ניתוקים, סוללות או תגובת מערכת איטית?", "hint": "מדידת המתנות", "status": "טרם נשאל"}, {"id": "Q163", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "האם כל המשתמשים עובדים בזיהוי אישי ובהרשאות מתאימות?", "hint": "רשימת משתמשים והרשאות", "status": "טרם נשאל"}, {"id": "Q164", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "איך הוכשרו העובדים ומה בודקים לפני עבודה עצמאית?", "hint": "חומר הדרכה ובדיקת כשירות", "status": "טרם נשאל"}, {"id": "Q165", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "מהן התקלות הפתוחות ומה זמן הטיפול וההסלמה שלהן?", "hint": "רשימת קריאות שירות", "status": "טרם נשאל"}, {"id": "Q166", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "איך נבדק שינוי מערכת לפני עלייה לאוויר?", "hint": "תהליך בדיקות ואישור שינוי", "status": "טרם נשאל"}, {"id": "Q167", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "איזה מידע אפשר לייצא למדידת תפוקה, המתנות ופיגור?", "hint": "דוחות לדוגמה והגדרות שדות", "status": "טרם נשאל"}, {"id": "Q168", "domain": "מערכת WMS וממשקים", "type": "העמקה", "q": "מה נוהל העבודה בזמן השבתת מערכת ואיך משלימים רישומים?", "hint": "נוהל גיבוי ואירוע אחרון", "status": "טרם נשאל"}, {"id": "Q169", "domain": "כוח אדם ומבנה ארגוני", "type": "ליבה", "q": "מה המבנה הארגוני בפועל ומה תחומי האחריות של כל תפקיד?", "hint": "תרשים ארגוני ותיאורי תפקיד", "status": "טרם נשאל"}, {"id": "Q170", "domain": "כוח אדם ומבנה ארגוני", "type": "ליבה", "q": "כמה עובדים נוכחים בפועל בכל תהליך ובכל משמרת?", "hint": "סידור עבודה מול נוכחות", "status": "טרם נשאל"}, {"id": "Q171", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "מה התקן, כמה משרות מאוישות ומה החוסרים?", "hint": "תקן מול מצבה לפי תפקיד", "status": "טרם נשאל"}, {"id": "Q172", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "כמה עובדים ישירים, זמניים וקבלנים ומה ההבדל בהכשרה?", "hint": "מצבת עובדים לפי סוג העסקה", "status": "טרם נשאל"}, {"id": "Q173", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "מי מנהל כל אזור וכמה עובדים כפופים לכל מנהל?", "hint": "מפת צוותים", "status": "טרם נשאל"}, {"id": "Q174", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "מה הוותק ורמת המיומנות לפי פעילות?", "hint": "מטריצת מיומנויות", "status": "טרם נשאל"}, {"id": "Q175", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "כמה עובדים יכולים לעבור בין קליטה, ליקוט, אריזה והחזרות?", "hint": "מפת גיבוי בין תהליכים", "status": "טרם נשאל"}, {"id": "Q176", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "איך נקבעת חלוקת עובדים לפי עומס צפוי?", "hint": "תכנון כוח אדם לדוגמה", "status": "טרם נשאל"}, {"id": "Q177", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "מה שיעורי ההיעדרות והתחלופה ומה ההשפעה על העבודה?", "hint": "נתונים מצרפיים ללא מידע אישי", "status": "טרם נשאל"}, {"id": "Q178", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "כמה זמן נמשך תהליך הכשרת עובד חדש עד תפוקה עצמאית?", "hint": "תוכנית חניכה ומדדי התקדמות", "status": "טרם נשאל"}, {"id": "Q179", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "האם יש תלות בעובד יחיד לידע או להרשאה קריטית?", "hint": "תפקידים ללא גיבוי", "status": "טרם נשאל"}, {"id": "Q180", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "מי מוסמך להעביר עובדים בין אזורים במהלך היום?", "hint": "כללי החלטה ודוגמה", "status": "טרם נשאל"}, {"id": "Q181", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "איך מודדים שעות יצרניות לעומת הפסקות, הדרכה והמתנות?", "hint": "הגדרת שעות ומקור נתונים", "status": "טרם נשאל"}, {"id": "Q182", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "איך מטפלים בפערי ביצוע ובבעיות מקצועיות בצוות?", "hint": "תהליך משוב והדרכה ללא שמות", "status": "טרם נשאל"}, {"id": "Q183", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "מה העובדים מציינים כגורמים שמקשים עליהם לעבוד?", "hint": "שיחות עובדים ותצפיות", "status": "טרם נשאל"}, {"id": "Q184", "domain": "כוח אדם ומבנה ארגוני", "type": "העמקה", "q": "האם שעות נוספות משפרות ביצוע וכיצד בודקים זאת?", "hint": "תפוקה ושעות לפי יום", "status": "טרם נשאל"}, {"id": "Q185", "domain": "שגרת יום ושעות פעילות", "type": "ליבה", "q": "איך נראה יום עבודה מהפתיחה ועד הסגירה ומי קובע את סדר העדיפויות?", "hint": "לו״ז יומי ותוכנית יום לדוגמה", "status": "טרם נשאל"}, {"id": "Q186", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מה שעות הפעילות בפועל בכל מחלקה ובכל יום?", "hint": "לוח פעילות לפי אזור", "status": "טרם נשאל"}, {"id": "Q187", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מה שעות העבודה של ה־WMS, התמיכה וספקי ההפצה?", "hint": "זמינות גורמי שירות", "status": "טרם נשאל"}, {"id": "Q188", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מתי נכנסות דרישות ומתי הן משתחררות לביצוע?", "hint": "התפלגות שעות שחרור משימות", "status": "טרם נשאל"}, {"id": "Q189", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "האם יש ישיבת פתיחה ומה מחליטים בה?", "hint": "סיכום ישיבה ותוכנית", "status": "טרם נשאל"}, {"id": "Q190", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מה העובד יודע בתחילת היום לגבי משימותיו והיעד שלו?", "hint": "תדריך או מסך משימות", "status": "טרם נשאל"}, {"id": "Q191", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "באילו שעות יש עומס ובאילו שעות חוסר עבודה ולמה?", "hint": "עומס ותפוקה לפי שעה", "status": "טרם נשאל"}, {"id": "Q192", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "כיצד מתוכננות הפסקות כך שלא ייווצר צוואר בקבוק?", "hint": "לוח הפסקות וכיסוי עמדות", "status": "טרם נשאל"}, {"id": "Q193", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "האם נבדקת התקדמות במהלך היום ובאילו נקודות זמן?", "hint": "דוח בקרה תוך־יומי", "status": "טרם נשאל"}, {"id": "Q194", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מה קורה כשמזהים שהיעד היומי בסיכון?", "hint": "אירוע אחרון והחלטות שנעשו", "status": "טרם נשאל"}, {"id": "Q195", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "כיצד מועברות משימות בין משמרות או בין ימים?", "hint": "רשימת פיגור ומסירת משמרת", "status": "טרם נשאל"}, {"id": "Q196", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מי מאשר שינוי עדיפות דחוף וכיצד העובדים מקבלים אותו?", "hint": "תהליך עדכון ודוגמה", "status": "טרם נשאל"}, {"id": "Q197", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "מה כוללת סגירת היום ומה מועבר להנהלה ולמסחר?", "hint": "דוח סיום יום", "status": "טרם נשאל"}, {"id": "Q198", "domain": "שגרת יום ושעות פעילות", "type": "העמקה", "q": "האם זמני תחילת עבודה בפועל תואמים לנוכחות ולתכנון?", "hint": "דגימת פתיחת משמרת", "status": "טרם נשאל"}, {"id": "Q199", "domain": "שגרת המנהלים וסמכויות", "type": "ליבה", "q": "איך מתחלקת האחריות בין אמיר, יניב ומנהלי הצוותים?", "hint": "חלוקת אחריות ודוגמאות החלטה", "status": "טרם נשאל"}, {"id": "Q200", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "מה סדר היום הקבוע של סמנכ״ל הלוגיסטיקה ושל מנהל המחסן?", "hint": "שגרה שבועית ויומית", "status": "טרם נשאל"}, {"id": "Q201", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "כמה זמן מנהלים נמצאים בשטח וכיצד בודקים ביצוע?", "hint": "סיורים ותיעוד בקרה", "status": "טרם נשאל"}, {"id": "Q202", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "איזה מידע כל מנהל רואה בתחילת היום ובמהלכו?", "hint": "דוחות ומסכי בקרה", "status": "טרם נשאל"}, {"id": "Q203", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "מי אחראי לתכנון קיבולת, שיבוץ ותפוקה יומית?", "hint": "בעל אחריות לכל נושא", "status": "טרם נשאל"}, {"id": "Q204", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "אילו החלטות אפשר לקבל עצמאית ומה מחייב אישור?", "hint": "מטריצת סמכות", "status": "טרם נשאל"}, {"id": "Q205", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "איך מטופלת בעיה שחוזרת כמה ימים ברציפות?", "hint": "דוגמה מתועדת לסגירת גורם שורש", "status": "טרם נשאל"}, {"id": "Q206", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "האם החלטות מישיבות מתורגמות למשימות עם אחראי ותאריך?", "hint": "רשימת פעולות ומעקב", "status": "טרם נשאל"}, {"id": "Q207", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "באיזו תדירות מתקיימת שיחת ביצועים עם מנהלי צוותים?", "hint": "לו״ז ותוכן שיחות", "status": "טרם נשאל"}, {"id": "Q208", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "מי מחליף כל מנהל בהיעדרו?", "hint": "מפת גיבוי", "status": "טרם נשאל"}, {"id": "Q209", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "כיצד עולים נושאים להנהלה ומה זמן התגובה?", "hint": "דוגמת הסלמה", "status": "טרם נשאל"}, {"id": "Q210", "domain": "שגרת המנהלים וסמכויות", "type": "העמקה", "q": "מהם החסמים שהמנהלים מבקשים להסיר כדי לשפר תפוקה?", "hint": "רשימת חסמים והסבר", "status": "טרם נשאל"}, {"id": "Q211", "domain": "יעדי מרלו״ג וקיבולת", "type": "ליבה", "q": "מהו היעד היומי, באיזו יחידה הוא נמדד ולפי איזה תהליך וערוץ?", "hint": "הגדרת מדד כתובה", "status": "טרם נשאל"}, {"id": "Q212", "domain": "יעדי מרלו״ג וקיבולת", "type": "ליבה", "q": "מה היעד מול הביצוע בכל יום בארבעת השבועות האחרונים?", "hint": "טבלה יומית הכוללת שעות עבודה ונפח נדרש", "status": "טרם נשאל"}, {"id": "Q213", "domain": "יעדי מרלו״ג וקיבולת", "type": "ליבה", "q": "מה הפיגור המצטבר וכיצד הוא מתחלק לפי תהליך, ערוץ וגיל?", "hint": "דוח משימות פתוחות לפי גיל", "status": "טרם נשאל"}, {"id": "Q214", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "כיצד נקבע היעד והאם הוא מבוסס על צורך מסחרי ועל מדידת קיבולת?", "hint": "שיטת קביעת יעד", "status": "טרם נשאל"}, {"id": "Q215", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "האם סופרים יחידות, שורות, הזמנות או קרטונים בנפרד?", "hint": "הגדרות מדדים ללא ערבוב יחידות", "status": "טרם נשאל"}, {"id": "Q216", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "האם יעד משתנה לפי תמהיל, מורכבות ועומס עונתי?", "hint": "דוגמאות ימי עבודה שונים", "status": "טרם נשאל"}, {"id": "Q217", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "מה קיבולת כל שלב בזרימה ומהו השלב שמגביל את היציאה?", "hint": "מדידת תפוקה ותורים לפי שלב", "status": "טרם נשאל"}, {"id": "Q218", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "האם שעות התפוקה כוללות המתנה, הפסקות ושעות מנהלים?", "hint": "הגדרת מכנה לשעת עבודה", "status": "טרם נשאל"}, {"id": "Q219", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "מה התפוקה בשעה רגילה לעומת שעות נוספות?", "hint": "דוח תפוקה לפי שעות", "status": "טרם נשאל"}, {"id": "Q220", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "האם נמדד זמן מקבלת דרישה עד מסירה ולא רק מספר יחידות?", "hint": "חותמות זמן והגדרת זמן שירות", "status": "טרם נשאל"}, {"id": "Q221", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "מה שיעור העמידה ביעד ומה שיעור אספקה בזמן וללא חוסר?", "hint": "דוחות עם הגדרת אוכלוסייה ותקופה", "status": "טרם נשאל"}, {"id": "Q222", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "האם מודדים איכות לצד מהירות וכיצד מונעים ספירה כפולה?", "hint": "הגדרת ביצוע תקין ותיקוני עבודה", "status": "טרם נשאל"}, {"id": "Q223", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "באילו ימים עמדו ביעד ומה היה שונה בהם?", "hint": "השוואת ימים עם תמהיל דומה", "status": "טרם נשאל"}, {"id": "Q224", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "האם קיימת תחזית עומסים לשבוע הקרוב ולעונות שיא?", "hint": "תחזית דרישה מול קיבולת", "status": "טרם נשאל"}, {"id": "Q225", "domain": "יעדי מרלו״ג וקיבולת", "type": "העמקה", "q": "מי מקבל התראה על פער ומה סף ההסלמה?", "hint": "כללי התראה ודוגמה", "status": "טרם נשאל"}, {"id": "Q226", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "כיצד מוגדר יעד לכל תפקיד ומה מצופה מעובד חדש?", "hint": "יעד תפקיד ותהליך התאקלמות", "status": "טרם נשאל"}, {"id": "Q227", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "האם העובד יודע את היעד ואת הביצוע שלו במהלך היום?", "hint": "מסך או תדריך לדוגמה", "status": "טרם נשאל"}, {"id": "Q228", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "האם מודדים תפוקה ברמת משתמש באופן אמין?", "hint": "דוח משתמש ובדיקת זיהוי אישי", "status": "טרם נשאל"}, {"id": "Q229", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "איך מתאימים יעד למורכבות הזמנה, מסלול ומיומנות?", "hint": "שיטת התאמה ודוגמאות", "status": "טרם נשאל"}, {"id": "Q230", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "איך מפרידים זמן עבודה בפועל מזמן המתנה שאינו בשליטת העובד?", "hint": "נתוני משימות והמתנות", "status": "טרם נשאל"}, {"id": "Q231", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "אילו יעדי איכות מלווים את יעד הכמות?", "hint": "טעויות ליקוט ואריזה", "status": "טרם נשאל"}, {"id": "Q232", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "באיזו תדירות ניתן משוב ואיך מתועדת התקדמות?", "hint": "תהליך משוב והדרכה", "status": "טרם נשאל"}, {"id": "Q233", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "האם קיימים תמריצים וכיצד נמנעים מתמרוץ טעויות או דחיית משימות?", "hint": "כללי תמריץ ובקרה", "status": "טרם נשאל"}, {"id": "Q234", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "מה יעדי מנהלי הצוותים ומנהל המחסן?", "hint": "מדדי אחריות ותדירות בחינה", "status": "טרם נשאל"}, {"id": "Q235", "domain": "יעדים אישיים והדרכה", "type": "העמקה", "q": "מי מזהה צורך בהדרכה ואיך בודקים שההדרכה הועילה?", "hint": "פער מיומנות לפני ואחרי", "status": "טרם נשאל"}, {"id": "Q236", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "ליבה", "q": "אילו מקרים ממחישים את הפגיעה במכירות ומתי הסחורה הייתה נדרשת?", "hint": "מוצר, חנות, מועד דרישה ומועד אספקה", "status": "טרם נשאל"}, {"id": "Q237", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "ליבה", "q": "האם במקרים אלה היה מלאי זמין במחסן בזמן הדרישה?", "hint": "יתרות וסטטוסים לפי מועד", "status": "טרם נשאל"}, {"id": "Q238", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "מי מעביר תחזיות, השקות ומבצעים למחסן וכמה זמן מראש?", "hint": "לוח מסחרי ומועד העברת מידע", "status": "טרם נשאל"}, {"id": "Q239", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "האם קיים זמן שירות מוסכם לכל סוג דרישה?", "hint": "הסכם שירות פנימי", "status": "טרם נשאל"}, {"id": "Q240", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "מה שיעור הדרישות הדחופות או השינויים ברגע האחרון?", "hint": "דרישות לפי זמן ושינויים", "status": "טרם נשאל"}, {"id": "Q241", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "איך המסחר קובע עדיפות כשלא ניתן לבצע את כל הדרישות?", "hint": "כללי קדימות ואישור החלטות", "status": "טרם נשאל"}, {"id": "Q242", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "האם החנויות רואות סטטוס אמין של הזמנות וזמן הגעה?", "hint": "מסך חנות והודעת עדכון", "status": "טרם נשאל"}, {"id": "Q243", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "איך נאספות תלונות חנויות ומי סוגר אותן?", "hint": "רישום תלונות וסיבות", "status": "טרם נשאל"}, {"id": "Q244", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "האם מבדילים בין חוסר מלאי, עיכוב קליטה, עיכוב ליקוט ובעיית הפצה?", "hint": "סיווג אירועי אי־אספקה", "status": "טרם נשאל"}, {"id": "Q245", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "איך מעריכים פגיעה במכירות ועל אילו נתונים ההערכה נשענת?", "hint": "שיטת אומדן והפרדה מטענה לא מאומתת", "status": "טרם נשאל"}, {"id": "Q246", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "מה זמן ההמתנה ממועד שהמוצר הגיע לארץ או למחסן עד זמינות לחנות?", "hint": "ציר זמן למוצרים נבחרים", "status": "טרם נשאל"}, {"id": "Q247", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "האם מלאי חוזר יכול לסגור חוסרים אך ממתין לטיפול?", "hint": "חוסרים בחנויות מול מלאי מוחזר", "status": "טרם נשאל"}, {"id": "Q248", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "איך נפתרות מחלוקות בין המחסן למסחר לגבי יעד או קדימות?", "hint": "דוגמה והחלטה מוסכמת", "status": "טרם נשאל"}, {"id": "Q249", "domain": "ממשק מסחרי ופגיעה במכירות", "type": "העמקה", "q": "האם מתקיימת פגישת תכנון משותפת ומה התוצרים שלה?", "hint": "תוכנית משותפת וסיכום", "status": "טרם נשאל"}, {"id": "Q250", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "האם מבנה המחסן תומך במסלול עבודה רציף ללא חזרה לאחור?", "hint": "מפת זרימה ותצפית", "status": "טרם נשאל"}, {"id": "Q251", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "היכן מצטברים תורים, סחורה או עובדים ומתי?", "hint": "תצפית בשעות עומס", "status": "טרם נשאל"}, {"id": "Q252", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "מה מרחקי ההליכה והאם יש מסלולים חוזרים מיותרים?", "hint": "מעקב אחר מלקט", "status": "טרם נשאל"}, {"id": "Q253", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "האם יש מספיק עגלות, מסופונים, מדפסות וציוד שינוע?", "hint": "מצאי ציוד מול משתמשים", "status": "טרם נשאל"}, {"id": "Q254", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "מה זמינות הציוד ומה היקף השבתות תחזוקה?", "hint": "יומן תקלות ותחזוקה", "status": "טרם נשאל"}, {"id": "Q255", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "האם שטחי קליטה, אריזה, החזרות ושילוח מותאמים לנפחים?", "hint": "שטח ותפוסה לפי אזור", "status": "טרם נשאל"}, {"id": "Q256", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "האם תאורה, שילוט ותנאי העבודה מאפשרים זיהוי פריטים יעיל?", "hint": "תצפית ושיחות עובדים", "status": "טרם נשאל"}, {"id": "Q257", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "האם גישה לגובה או ציוד משותף גורמים להמתנה?", "hint": "תצפית וזמן המתנה", "status": "טרם נשאל"}, {"id": "Q258", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "אילו סיכוני בטיחות או חסימת מעברים מפריעים לזרימה?", "hint": "תצפית ותיעוד טיפול", "status": "טרם נשאל"}, {"id": "Q259", "domain": "תשתיות ציוד וזרימה בשטח", "type": "העמקה", "q": "איך מטפלים בסדר וניקיון במהלך הפעילות?", "hint": "שגרת אחריות ובקרה", "status": "טרם נשאל"}, {"id": "Q260", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "אילו עלויות לוגיסטיות נמדדות באופן קבוע ולפי איזה ערוץ?", "hint": "דוח עלויות והקצאת עלות", "status": "טרם נשאל"}, {"id": "Q261", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "האם ידועה עלות לשורה, ליחידה או להזמנה לפי סוג פעילות?", "hint": "הגדרת עלות ונפח תואם", "status": "טרם נשאל"}, {"id": "Q262", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "מה העלות של עבודה חוזרת, טעויות ונסיעות דחופות?", "hint": "אומדן מבוסס אירועים", "status": "טרם נשאל"}, {"id": "Q263", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "אילו פתרונות כבר הוצעו ומדוע יושמו או לא יושמו?", "hint": "רשימת הצעות והחלטות", "status": "טרם נשאל"}, {"id": "Q264", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "מה נדרש לשינוי: אנשים, ציוד, תהליך, מערכת או אישור?", "hint": "פירוט צורך ונימוק", "status": "טרם נשאל"}, {"id": "Q265", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "האם נבחנה השפעת פתרון על צוואר הבקבוק ועל התהליך הבא?", "hint": "בדיקת קיבולת מקצה לקצה", "status": "טרם נשאל"}, {"id": "Q266", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "האם אפשר לבצע ניסוי מצומצם לפני שינוי רחב ומה יימדד בו?", "hint": "הצעת ניסוי ומדד לפני ואחרי", "status": "טרם נשאל"}, {"id": "Q267", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "מי יכול להוביל שיפור ומי יאשר משאבים?", "hint": "אחריות וסמכות", "status": "טרם נשאל"}, {"id": "Q268", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "מהם פתרונות שניתן לבדוק מיד ומה דורש אבחון נוסף?", "hint": "רשימת אפשרויות ללא התחייבות", "status": "טרם נשאל"}, {"id": "Q269", "domain": "עלויות תכנון ושיפור", "type": "העמקה", "q": "איך ייבדק שהשיפור נשמר גם ביום עמוס?", "hint": "תוכנית מעקב ותנאי בדיקה", "status": "טרם נשאל"}, {"id": "Q270", "domain": "סיכום הביקור והמשך", "type": "ליבה", "q": "מהם שלושת צווארי הבקבוק האפשריים לפי מה שראינו ומה תומך בכל אחד?", "hint": "תצפית, נתון או השערה מסומנת", "status": "טרם נשאל"}, {"id": "Q271", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "אילו נקודות עדיין אינן ברורות ועם מי צריך לברר אותן?", "hint": "שאלה פתוחה וגורם מתאים", "status": "טרם נשאל"}, {"id": "Q272", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "אילו דוחות ניתן לקבל ומי יעביר כל אחד ומתי?", "hint": "בקשת נתונים עם אחראי ומועד", "status": "טרם נשאל"}, {"id": "Q273", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "האם אפשר לדגום יום עבודה מלא או מספר הזמנות מקצה לקצה?", "hint": "תיאום דגימה והיקף", "status": "טרם נשאל"}, {"id": "Q274", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "אילו הבדלים בין הנהלים לעבודה בפועל דורשים בדיקה?", "hint": "תצפיות והסבר עובדים", "status": "טרם נשאל"}, {"id": "Q275", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "מה נכון לבדוק תחילה כדי להבחין בין גורמים אפשריים לפער?", "hint": "סדר בדיקות ומידע נדרש", "status": "טרם נשאל"}, {"id": "Q276", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "אילו צעדים מוסכמים ניתן לבצע ומי אחראי להם?", "hint": "פעולה, אחראי ותאריך", "status": "טרם נשאל"}, {"id": "Q277", "domain": "סיכום הביקור והמשך", "type": "העמקה", "q": "מה מטרת פגישת ההמשך ומי צריך להשתתף בה?", "hint": "תוצר צפוי ומשתתפים", "status": "טרם נשאל"}]};
+(function(){
+"use strict";
+const M = DATA.meta, QS = DATA.qs, SECS = M.sections;
+const KEY = "mrlog911-questionnaire-v1";
+const ICONS = ["warehouse","container","shelf","store","cart","online","box","truck","return","tools","pallet","barcode","monitor","team","clock","brief","target","medal","chart","forklift","coins","flag"];
+const STATUS_COLORS = {"טרם נשאל":"#8a98a8","נענה":"#2e9d5b","נענה חלקית":"#e8a317","ממתין לנתון":"#2f7fd1","לא רלוונטי":"#7b5ea7"};
+const DETAILS = [["company","שם החברה / האתר","text"],["filler","שם הממלא/ת","text"],["role","תפקיד","text"],["email","דוא״ל הממלא/ת","email"],["fdate","תאריך מילוי","date"],["sendTo","שליחת התשובות אל (דוא״ל)","email"]];
+const OBS_F = [["link","שאלה מקושרת"],["domain","תחום"],["type","סוג רישום"],["desc","תיאור / פעולה"],["evid","מקור / ראיה"],["missing","מה עדיין חסר"],["owner","אחראי"],["due","מועד להשלמה"],["status","מצב"],["result","תוצאה / עדכון"]];
+const $ = (s,el=document)=>el.querySelector(s), $$=(s,el=document)=>[...el.querySelectorAll(s)];
+const esc = s => String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const icon = n => `<svg class="ic"><use href="#i-${n}"/></svg>`;
+const pad = n => String(n).padStart(2,"0");
+const bySec = SECS.map(s=>QS.filter(q=>q.domain===s));
+const qIndex = {}; QS.forEach(q=>qIndex[q.id]=q);
+const CORE_N = QS.filter(q=>q.type==="ליבה").length;
+
+/* ---------- state ---------- */
+function newObs(){ return {link:"",domain:"",type:"",desc:"",evid:"",missing:"",owner:"",due:"",status:"פתוח",result:""}; }
+let state = {details:{}, q:{}, obs:[], step:0};
+try{ const s = JSON.parse(localStorage.getItem(KEY)||"null"); if(s && typeof s==="object") state = Object.assign(state,s); }catch(e){}
+if(!Array.isArray(state.obs) || !state.obs.length) state.obs = [newObs(),newObs(),newObs()];
+const qv = id => state.q[id] || (state.q[id] = {status:"טרם נשאל"});
+const isAns = id => { const v=state.q[id]; return !!v && (!!(v.answer||"").trim() || (!!v.status && v.status!=="טרם נשאל")); };
+
+let saveT=null;
+function save(){
+  const el=$("#saved"); el.classList.add("busy"); el.lastChild.textContent="שומר…";
+  clearTimeout(saveT);
+  saveT=setTimeout(()=>{
+    try{ localStorage.setItem(KEY, JSON.stringify(state));
+      el.lastChild.textContent="נשמר אוטומטית · "+new Date().toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"});
+    }catch(e){ el.lastChild.textContent="השמירה בדפדפן נכשלה – הורידו CSV"; }
+    el.classList.remove("busy");
+  },350);
+}
+
+/* ---------- header ---------- */
+$("#hTitle").innerHTML = esc(M.title).replace("911 |",'<span class="tag">911 |</span>');
+$("#hMeeting").textContent = M.meeting; $("#hNote").textContent = M.note;
+$("#hsQ").textContent = QS.length; $("#hsS").textContent = SECS.length; $("#hsC").textContent = CORE_N;
+
+/* ---------- barcode (decorative, deterministic per id) ---------- */
+function barcode(txt){
+  let x=0, bars="";
+  for(const ch of "*"+txt+"*"){ const c=(ch.charCodeAt(0)*2654435761)>>>0;
+    for(let i=0;i<6;i++){ const w=1+((c>>>(i*4))&3); if(i%2===0) bars+=`<rect x="${x}" y="0" width="${w}" height="26"/>`; x+=w+(i%2?0:1); } }
+  return `<svg viewBox="0 0 ${x} 26" preserveAspectRatio="none" style="width:${Math.min(Math.round(x*1.15),150)}px" fill="#0e2740" aria-hidden="true">${bars}</svg>`;
+}
+
+/* ---------- build steps ---------- */
+const N = SECS.length, STEP_OBS=N+1, STEP_SUM=N+2;
+let html = `<section class="step" data-step="0">
+ <div class="sec-head"><div class="sec-icon">${icon("clip")}</div><div><div class="kick">נקודת יציאה · תחנה 00</div><h2>${esc(M.guideTitle)}</h2>
+ <div class="chips"><span class="chip">${QS.length} שאלות</span><span class="chip">${N} תחומים</span><span class="chip">${CORE_N} שאלות ליבה</span></div></div></div>
+ <div class="panel"><h3>${icon("team")}פרטי הממלא/ת</h3><div class="form-grid">
+ ${DETAILS.map(([k,l,t])=>`<label><span class="fl">${l}</span><input type="${t}" data-d="${k}"${t==="email"?' dir="ltr" style="text-align:right" placeholder="name@company.co.il"':""}></label>`).join("")}
+ </div></div>
+ <div class="panel"><h3>${icon("route")}איך לעבוד עם השאלון</h3><div class="guide">
+ ${M.guide.map((g,i)=>`<div class="g-item"><b data-n="${i+1}">${esc(g[0])}</b><p>${esc(g[1])}</p></div>`).join("")}
+ </div></div>
+ <div class="panel"><h3>${icon("pallet")}מפת נושאים</h3>
+ <table class="mapt"><thead><tr><th>תחום</th><th>מספר שאלות</th><th>שאלות ליבה</th></tr></thead><tbody>
+ ${SECS.map((s,i)=>`<tr data-go="${i+1}"><td>${icon(ICONS[i])}&nbsp; ${esc(s)}</td><td>${bySec[i].length}</td><td>${bySec[i].filter(q=>q.type==="ליבה").length}</td></tr>`).join("")}
+ </tbody><tfoot><tr><td>סה״כ שאלות</td><td>${QS.length}</td><td>${CORE_N}</td></tr></tfoot></table>
+ ${M.source.map(s=>`<p class="src"><b>${esc(s[0])}:</b> ${esc(s[1])}</p>`).join("")}
+ </div>
+</section>`;
+function card(q){
+  const id=q.id, core=q.type==="ליבה";
+  return `<article class="qcard${core?" core":""}" data-id="${id}" id="card-${id}">
+  <div class="label-top"><span class="trk">${id}</span><span class="badge${core?" core":""}">${esc(q.type)}</span><span class="barcode">${barcode(id)}</span></div>
+  <span class="stamp">✓ נקלט</span>
+  <div class="qbody">
+   <h3 class="qtext">${esc(q.q)}</h3>
+   ${q.hint?`<div class="hint">${icon("clip")}<div><b>נתון או הדגמה לבקש:</b> ${esc(q.hint)}</div></div>`:""}
+   <label><span class="fl">תשובה / הסבר</span><textarea data-q="${id}" data-f="answer" rows="3" placeholder="כתבו כאן את התשובה וההסבר…"></textarea></label>
+   <fieldset class="status"><legend>מצב</legend>
+   ${M.status.map(st=>`<label style="--c:${STATUS_COLORS[st]||"#8a98a8"}"><input type="radio" name="${id}__status" value="${esc(st)}" data-q="${id}" data-f="status"><span>${esc(st)}</span></label>`).join("")}
+   </fieldset>
+   <details class="more"><summary>${icon("clip")} פרטי תיעוד: משיב, מקור, אימות, פער ופעולת המשך <span class="dot"></span></summary>
+    <div class="grid">
+     <label><span class="fl">משיב</span><input type="text" data-q="${id}" data-f="resp"></label>
+     <label><span class="fl">תאריך</span><input type="date" data-q="${id}" data-f="date"></label>
+     <label><span class="fl">מקור / קובץ / דוגמה</span><input type="text" data-q="${id}" data-f="src"></label>
+     <label><span class="fl">רמת אימות</span><select data-q="${id}" data-f="verify"><option value="">— בחרו —</option>${M.verify.map(v=>`<option>${esc(v)}</option>`).join("")}</select></label>
+     <label><span class="fl">תצפית / פער</span><textarea data-q="${id}" data-f="gap" rows="2"></textarea></label>
+     <label><span class="fl">שאלת המשך / פעולה</span><textarea data-q="${id}" data-f="follow" rows="2"></textarea></label>
+     <label class="full"><span class="fl">אחראי להשלמה</span><input type="text" data-q="${id}" data-f="owner"></label>
+    </div></details>
+  </div></article>`;
+}
+SECS.forEach((s,si)=>{
+  const qs=bySec[si], core=qs.filter(q=>q.type==="ליבה").length;
+  html += `<section class="step" data-step="${si+1}" data-sec="${si}">
+  <div class="sec-head"><div class="sec-icon">${icon(ICONS[si])}</div><div><div class="kick">תחנה ${pad(si+1)} / ${N}</div><h2>${esc(s)}</h2>
+  <div class="chips"><span class="chip">${qs.length} שאלות</span><span class="chip">${core} ליבה · ${qs.length-core} העמקה</span><span class="chip" dir="ltr">${qs[0].id}–${qs[qs.length-1].id}</span></div></div>
+  <div class="sec-prog"><svg class="ring" viewBox="0 0 70 70"><circle cx="35" cy="35" r="29" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="7"/><circle class="rg" cx="35" cy="35" r="29" fill="none" stroke="#ff7a1a" stroke-width="7" stroke-linecap="round" stroke-dasharray="182.2" stroke-dashoffset="182.2" transform="rotate(-90 35 35)"/><text x="35" y="40" text-anchor="middle" class="rt">0%</text></svg></div></div>
+  <h3 class="search-sec hidden">${icon(ICONS[si])} ${esc(s)}</h3>
+  ${qs.map(card).join("")}
+  <div class="empty hidden">אין שאלות שתואמות את הסינון בתחנה זו.</div>
+  </section>`;
+});
+html += `<section class="step" data-step="${STEP_OBS}">
+ <div class="sec-head"><div class="sec-icon">${icon("barcode")}</div><div><div class="kick">יומן משלוח · תחנה ${N+1}</div><h2>${esc(M.obsTitle)}</h2><div class="chips"><span class="chip">${esc(M.obsNote)}</span></div></div></div>
+ <div id="obsList"></div>
+ <button class="btn gh" id="addObs">${icon("plus")} הוספת רישום</button>
+</section>
+<section class="step" data-step="${STEP_SUM}">
+ <div class="sec-head"><div class="sec-icon">${icon("flag")}</div><div><div class="kick">יעד סופי · מסירה</div><h2>סיכום ושליחה</h2><div class="chips"><span class="chip">בדקו את ההתקדמות, הורידו את הקבצים ושלחו</span></div></div></div>
+ <div class="submitted-note" id="subNote"></div>
+ <div class="submit-panel"><div><h3>מוכנים למסירה?</h3><p>לחיצה אחת שולחת את כל התשובות ויומן התצפיות ישירות לצוות 911.</p></div><button class="btn send big" data-act="submit">${icon("mail")} שליחת השאלון</button></div>
+ <div class="kpis" id="kpis"></div>
+ <div class="panel"><h3>${icon("truck")}התקדמות לפי תחנה</h3><div class="bars" id="bars"></div></div>
+ <div class="panel"><h3>${icon("box")}עותקים ואפשרויות נוספות</h3>
+  <p style="margin:0 0 14px;color:var(--muted)">מלבד השליחה, אפשר להוריד עותק: קובץ CSV (נפתח באקסל) או PDF דרך תצוגת ההדפסה.</p>
+  <div class="send-row">
+   <button class="btn send" data-act="submit">${icon("mail")} שליחת השאלון</button>
+   <button class="btn or" data-act="csv">${icon("sheet")} הורדת CSV</button>
+   <button class="btn" data-act="pdf">${icon("print")} הדפסה / PDF</button>
+   <button class="btn" data-act="mail">${icon("mail")} שליחה במייל</button>
+   <button class="btn gh" data-act="copy">${icon("copy")} העתקת התשובות כטקסט</button>
+   <button class="btn danger" data-act="reset">${icon("trash")} איפוס השאלון</button>
+  </div></div>
+</section>`;
+$("#stage").innerHTML = html;
+
+/* ---------- nav & route stops ---------- */
+let nh = `<li><button data-go="0"><span class="ico">${icon("clip")}</span><span class="ttl">הנחיות ופרטי ממלא</span></button></li><li class="sep"></li>`;
+SECS.forEach((s,i)=>{ nh+=`<li><button data-go="${i+1}"><span class="ico">${icon(ICONS[i])}</span><span class="ttl">${esc(s)}<span class="mini"><i></i></span></span><span class="cnt" data-cnt="${i}">0/${bySec[i].length}</span></button></li>`; });
+nh += `<li class="sep"></li><li><button data-go="${STEP_OBS}"><span class="ico">${icon("barcode")}</span><span class="ttl">תצפיות ומעקב</span><span class="cnt" id="obsCnt"></span></button></li>
+<li><button data-go="${STEP_SUM}"><span class="ico">${icon("flag")}</span><span class="ttl">סיכום ושליחה</span></button></li>`;
+$("#navList").innerHTML = nh;
+$("#stops").innerHTML = SECS.map((s,i)=>`<button class="stop" data-go="${i+1}" style="right:${((i+0.5)/N*100).toFixed(2)}%" aria-label="${esc(s)}"><span class="tip">${pad(i+1)} · ${esc(s)}</span></button>`).join("");
+/* ---------- restore values ---------- */
+function fillInputs(){
+  $$("[data-d]").forEach(el=>{ el.value = state.details[el.dataset.d]||""; });
+  $$("[data-q]").forEach(el=>{
+    const v=state.q[el.dataset.q]||{};
+    if(el.type==="radio") el.checked = (v.status||"טרם נשאל")===el.value;
+    else el.value = v[el.dataset.f]||"";
+  });
+  $$(".qcard").forEach(updCard);
+}
+function updCard(c){
+  const id=c.dataset.id, v=state.q[id]||{};
+  c.classList.toggle("ans", isAns(id));
+  $("details.more",c).classList.toggle("has", ["resp","date","src","verify","gap","follow","owner"].some(k=>(v[k]||"").trim()));
+}
+
+/* ---------- observations log ---------- */
+const qOpts = `<option value="">— ללא —</option>`+QS.map(q=>`<option value="${q.id}">${q.id} · ${esc(q.q.length>60?q.q.slice(0,60)+"…":q.q)}</option>`).join("");
+const domOpts = `<option value="">— בחרו —</option>`+SECS.map(s=>`<option>${esc(s)}</option>`).join("");
+function renderObs(){
+  $("#obsList").innerHTML = state.obs.map((o,i)=>`<div class="obs" data-i="${i}">
+   <div class="obs-h"><span class="num">#${pad(i+1)}</span><span style="font-size:13px;color:var(--muted)">רישום ${i+1}</span><button class="x" data-del="${i}" aria-label="מחיקת רישום">${icon("trash")}</button></div>
+   <div class="grid">
+    <label><span class="fl">שאלה מקושרת</span><select data-o="link">${qOpts}</select></label>
+    <label><span class="fl">תחום</span><select data-o="domain">${domOpts}</select></label>
+    <label><span class="fl">סוג רישום</span><select data-o="type"><option value="">— בחרו —</option>${M.obsTypes.map(t=>`<option>${esc(t)}</option>`).join("")}</select></label>
+    <label class="w2"><span class="fl">תיאור / פעולה</span><textarea data-o="desc" rows="2"></textarea></label>
+    <label><span class="fl">מקור / ראיה</span><input type="text" data-o="evid"></label>
+    <label><span class="fl">מה עדיין חסר</span><input type="text" data-o="missing"></label>
+    <label><span class="fl">אחראי</span><input type="text" data-o="owner"></label>
+    <label><span class="fl">מועד להשלמה</span><input type="date" data-o="due"></label>
+    <label><span class="fl">מצב</span><select data-o="status">${M.obsStatus.map(t=>`<option>${esc(t)}</option>`).join("")}</select></label>
+    <label class="w2"><span class="fl">תוצאה / עדכון</span><textarea data-o="result" rows="2"></textarea></label>
+   </div></div>`).join("");
+  $$("#obsList .obs").forEach(box=>{ const o=state.obs[+box.dataset.i]; $$("[data-o]",box).forEach(el=>el.value=o[el.dataset.o]||(el.dataset.o==="status"?"פתוח":"")); });
+  updObsCnt();
+}
+const obsFilled = () => state.obs.filter(o=>OBS_F.some(([k])=>k!=="status"&&(o[k]||"").trim()));
+function updObsCnt(){ $("#obsCnt").textContent = obsFilled().length||""; }
+
+/* ---------- events ---------- */
+function onEdit(e){
+  const el=e.target;
+  if(el.dataset.d){ state.details[el.dataset.d]=el.value; save(); return; }
+  if(el.dataset.q){ const v=qv(el.dataset.q);
+    if(el.type==="radio"){ if(el.checked) v.status=el.value; } else v[el.dataset.f]=el.value;
+    updCard(el.closest(".qcard")); progress(); save(); return; }
+  if(el.dataset.o){ const box=el.closest(".obs"), o=state.obs[+box.dataset.i]; o[el.dataset.o]=el.value;
+    if(el.dataset.o==="link" && el.value && !o.domain){ o.domain=qIndex[el.value].domain; $('[data-o="domain"]',box).value=o.domain; }
+    updObsCnt(); save(); }
+}
+document.addEventListener("input", onEdit); document.addEventListener("change", onEdit);
+document.addEventListener("click",e=>{
+  const g=e.target.closest("[data-go]"); if(g){ go(+g.dataset.go); closeNav(); return; }
+  const d=e.target.closest("[data-del]"); if(d){ const i=+d.dataset.del, o=state.obs[i];
+    if(OBS_F.some(([k])=>k!=="status"&&(o[k]||"").trim()) && !confirm("למחוק את הרישום?")) return;
+    state.obs.splice(i,1); if(!state.obs.length) state.obs.push(newObs()); renderObs(); save(); return; }
+  const a=e.target.closest("[data-act]"); if(a){ ({csv:downloadCSV,pdf:printView,mail:mailTo,copy:()=>copyText(false),reset:resetAll,submit:openSend})[a.dataset.act](); return; }
+  if(e.target.closest("[data-close]")||e.target.classList.contains("modal")) $$(".modal").forEach(m=>m.classList.remove("open"));
+});
+document.addEventListener("keydown",e=>{ if(e.key==="Escape"){ $$(".modal").forEach(m=>m.classList.remove("open")); closeNav(); }});
+$("#addObs").addEventListener("click",()=>{ state.obs.push(newObs()); renderObs(); save(); $("#obsList .obs:last-child textarea").focus(); });
+$("#prevBtn").onclick=()=>go(state.step-1);
+$("#nextBtn").onclick=()=>go(state.step>=STEP_SUM?0:state.step+1);
+$("#menuBtn").onclick=()=>{ $("#nav").classList.add("open"); $("#overlay").classList.add("open"); };
+$("#overlay").onclick=closeNav;
+function closeNav(){ $("#nav").classList.remove("open"); $("#overlay").classList.remove("open"); }
+$("#dlBtn").onclick=()=>$("#dlModal").classList.add("open");
+$("#sendTop").onclick=openSend;
+$("#optCsv").onclick=()=>{ downloadCSV(); $("#dlModal").classList.remove("open"); };
+$("#optPdf").onclick=()=>{ $("#dlModal").classList.remove("open"); printView(); };
+$("#optBoth").onclick=()=>{ downloadCSV(); $("#dlModal").classList.remove("open"); setTimeout(printView,700); };
+
+/* ---------- filters / search ---------- */
+const fq=$("#q"), fCore=$("#fCore"), fOpen=$("#fOpen");
+[fq,fCore,fOpen].forEach(el=>el.addEventListener("input",applyFilter));
+function applyFilter(){
+  const term=fq.value.trim().toLowerCase(), searching=!!term;
+  $$(".qcard").forEach(c=>{
+    const q=qIndex[c.dataset.id];
+    let ok = (!fCore.checked || q.type==="ליבה") && (!fOpen.checked || !isAns(q.id));
+    if(ok && searching){ const v=state.q[q.id]||{}; ok=(q.id+" "+q.q+" "+(q.hint||"")+" "+q.domain+" "+Object.values(v).join(" ")).toLowerCase().includes(term); }
+    c.classList.toggle("hidden",!ok);
+  });
+  $$(".step[data-sec]").forEach(s=>{
+    const any=$$(".qcard:not(.hidden)",s).length>0;
+    $(".empty",s).classList.toggle("hidden",any||searching);
+    $(".search-sec",s).classList.toggle("hidden",!searching);
+    $(".sec-head",s).classList.toggle("hidden",searching);
+    if(searching) s.classList.toggle("show",any);
+  });
+  if(searching){
+    $$(".step:not([data-sec])").forEach(s=>s.classList.remove("show")); $("#pager").classList.add("hidden");
+    if(!$$(".step.show").length) toast("לא נמצאו שאלות תואמות");
+  } else { $("#pager").classList.remove("hidden"); go(state.step,true); }
+}
+
+/* ---------- navigation ---------- */
+function go(n,noScroll){
+  n=Math.max(0,Math.min(STEP_SUM,n|0)); state.step=n;
+  if(fq.value){ fq.value=""; applyFilter(); return; }
+  $$(".step").forEach(s=>s.classList.toggle("show",+s.dataset.step===n));
+  $$("#navList [data-go]").forEach(b=>b.classList.toggle("cur",+b.dataset.go===n));
+  $$(".stop").forEach(b=>b.classList.toggle("cur",+b.dataset.go===n));
+  $("#prevBtn").style.visibility = n===0?"hidden":"visible";
+  $("#nextBtn").textContent = n===STEP_SUM?"חזרה להתחלה ←":(n===0?"יציאה לדרך: תחנה 01 ←":(n===N?"ליומן התצפיות ←":(n===STEP_OBS?"לסיכום ושליחה ←":"התחנה הבאה ←")));
+  $("#tools").classList.toggle("hidden", n===0||n>=STEP_OBS);
+  if(n===STEP_SUM) summary();
+  if(!noScroll){ const top=$("#main").getBoundingClientRect().top+scrollY-100; if(scrollY>top) scrollTo({top,behavior:"smooth"}); }
+  save();
+}
+
+/* ---------- progress ---------- */
+function progress(){
+  const tot=QS.length, done=QS.filter(q=>isAns(q.id)).length, pct=Math.round(done/tot*100);
+  $("#pPct").textContent=pct+"%"; $("#pTxt").textContent=`${done} מתוך ${tot} שאלות נענו`;
+  $("#roadDone").style.width=(done/tot*100)+"%"; $("#truck").style.right=(done/tot*100)+"%";
+  const stops=$$(".stop"), minis=$$(".nav .mini i");
+  bySec.forEach((qs,i)=>{
+    const d=qs.filter(q=>isAns(q.id)).length, p=d/qs.length;
+    stops[i].classList.toggle("full",p===1); stops[i].classList.toggle("part",p>0&&p<1);
+    $(`[data-cnt="${i}"]`).textContent=`${d}/${qs.length}`;
+    minis[i].style.width=(p*100)+"%";
+    const sec=$(`.step[data-sec="${i}"]`); $(".rg",sec).style.strokeDashoffset=182.2*(1-p); $(".rt",sec).textContent=Math.round(p*100)+"%";
+  });
+}
+function summary(){
+  const tot=QS.length, done=QS.filter(q=>isAns(q.id)).length;
+  const coreQ=QS.filter(q=>q.type==="ליבה"), coreD=coreQ.filter(q=>isAns(q.id)).length;
+  const wait=QS.filter(q=>(state.q[q.id]||{}).status==="ממתין לנתון").length;
+  $("#kpis").innerHTML=[[done+"/"+tot,"שאלות שנענו"],[coreD+"/"+coreQ.length,"שאלות ליבה שנענו"],[wait,"ממתינות לנתון"],[obsFilled().length,"רישומי תצפית ומעקב"]]
+    .map(k=>`<div class="kpi"><b>${k[0]}</b><span>${k[1]}</span></div>`).join("");
+  $("#bars").innerHTML=bySec.map((qs,i)=>{ const d=qs.filter(q=>isAns(q.id)).length;
+    return `<div class="bar" data-go="${i+1}"><span>${icon(ICONS[i])} ${esc(SECS[i])}</span><span class="t"><i style="width:${d/qs.length*100}%"></i></span><span style="color:var(--muted);font-size:13px">${d}/${qs.length}</span></div>`; }).join("");
+}
+
+/* ---------- exports ---------- */
+const today=()=>{ const d=new Date(); return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; };
+const fmtDate=d=>{ if(!d) return ""; const p=String(d).split("-"); return p.length===3?`${p[2]}.${p[1]}.${p[0]}`:d; };
+const respDate=v=>[v.resp,fmtDate(v.date)].filter(Boolean).join(" / ");
+const csvCell=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+function buildCSV(){
+  const D=state.details, rows=[[M.title],[M.meeting]];
+  DETAILS.forEach(([k,l])=>rows.push([l, k==="fdate"?fmtDate(D[k]):(D[k]||"")]));
+  rows.push(["תאריך ייצוא", new Date().toLocaleString("he-IL")]);
+  rows.push([]); rows.push(M.headers);
+  QS.forEach(q=>{ const v=state.q[q.id]||{};
+    rows.push([q.id,q.domain,q.type,q.q,v.answer||"",q.hint||"",respDate(v),v.src||"",v.verify||"",v.gap||"",v.follow||"",v.status||"טרם נשאל",v.owner||""]); });
+  rows.push([]); rows.push([M.obsTitle]); rows.push(M.obsHeaders);
+  obsFilled().forEach((o,i)=>rows.push([i+1,o.link,o.domain,o.type,o.desc,o.evid,o.missing,o.owner,fmtDate(o.due),o.status,o.result]));
+  return "\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n");
+}
+function csvName(){ const co=(state.details.company||"").trim().replace(/[\\/:*?"<>|]+/g,"").slice(0,40); return `שאלון_אבחון_מרלוג${co?"_"+co:""}_${today()}.csv`; }
+function downloadCSV(){
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([buildCSV()],{type:"text/csv;charset=utf-8"}));
+  a.download=csvName();
+  document.body.appendChild(a); a.click(); setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1500);
+  toast("קובץ ה־CSV הורד ✓");
+}
+function buildPrint(){
+  const only=$("#pvOnly").checked, D=state.details;
+  let h=`<div class="pv-head"><div class="bm">911</div><h1>${esc(M.title)}</h1></div><p class="pv-meta">${esc(M.meeting)} · ${esc(M.note)}</p>
+  <div class="pv-det">${DETAILS.filter(d=>d[0]!=="sendTo").map(([k,l])=>`<div><b>${l}:</b> ${esc((k==="fdate"?fmtDate(D[k]):D[k])||"—")}</div>`).join("")}<div><b>נענו:</b> ${QS.filter(q=>isAns(q.id)).length} / ${QS.length}</div></div>`;
+  SECS.forEach((s,i)=>{
+    const qs=bySec[i].filter(q=>!only||isAns(q.id)); if(!qs.length) return;
+    h+=`<div class="pv-sec"><h2>${pad(i+1)} · ${esc(s)}</h2>`;
+    qs.forEach(q=>{ const v=state.q[q.id]||{};
+      const ext=[["משיב / תאריך",respDate(v)],["מקור / קובץ / דוגמה",v.src],["רמת אימות",v.verify],["תצפית / פער",v.gap],["שאלת המשך / פעולה",v.follow],["אחראי להשלמה",v.owner]].filter(x=>(x[1]||"").trim());
+      h+=`<div class="pv-q"><div class="h"><span class="id">${q.id}</span><span class="ty">${esc(q.type)}</span><span>${esc(q.q)}</span><span class="st">${esc(v.status||"טרם נשאל")}</span></div>
+      ${q.hint?`<div class="ph">נתון או הדגמה לבקש: ${esc(q.hint)}</div>`:""}
+      <div class="ans${(v.answer||"").trim()?"":" noans"}">${esc(v.answer||"")}</div>
+      ${ext.length?`<div class="ext">${ext.map(x=>`<div><b>${x[0]}:</b> ${esc(x[1])}</div>`).join("")}</div>`:""}</div>`; });
+    h+=`</div>`;
+  });
+  const ob=obsFilled();
+  if(ob.length) h+=`<div class="pv-sec"><h2>${esc(M.obsTitle)}</h2><table class="pv-obs"><thead><tr>${M.obsHeaders.map(x=>`<th>${esc(x)}</th>`).join("")}</tr></thead><tbody>`+
+    ob.map((o,i)=>`<tr><td>${i+1}</td>${OBS_F.map(([k])=>`<td>${esc(k==="due"?fmtDate(o[k]):o[k])}</td>`).join("")}</tr>`).join("")+`</tbody></table></div>`;
+  h+=`<div class="pv-foot">הופק מהשאלון הדיגיטלי · ${new Date().toLocaleString("he-IL")}</div>`;
+  $("#printView").innerHTML=h;
+}
+function printView(){ buildPrint(); setTimeout(()=>window.print(),80); }
+window.addEventListener("beforeprint",()=>{ if(!$("#printView").innerHTML) buildPrint(); });
+function plainText(){
+  const D=state.details; let t=`${M.title}\n${M.meeting}\n`;
+  DETAILS.filter(d=>d[0]!=="sendTo").forEach(([k,l])=>{ if(D[k]) t+=`${l}: ${k==="fdate"?fmtDate(D[k]):D[k]}\n`; });
+  t+=`נענו ${QS.filter(q=>isAns(q.id)).length} מתוך ${QS.length} שאלות\n`;
+  SECS.forEach((s,i)=>{ const qs=bySec[i].filter(q=>isAns(q.id)); if(!qs.length) return;
+    t+=`\n=== ${s} ===\n`;
+    qs.forEach(q=>{ const v=state.q[q.id]||{}; t+=`\n${q.id} [${v.status||"טרם נשאל"}] ${q.q}\n`;
+      if((v.answer||"").trim()) t+=`תשובה: ${v.answer.trim()}\n`;
+      [["משיב / תאריך",respDate(v)],["מקור",v.src],["רמת אימות",v.verify],["תצפית / פער",v.gap],["שאלת המשך / פעולה",v.follow],["אחראי להשלמה",v.owner]]
+        .forEach(([l,x])=>{ if((x||"").trim()) t+=`${l}: ${x.trim()}\n`; }); }); });
+  const ob=obsFilled();
+  if(ob.length){ t+=`\n=== ${M.obsTitle} ===\n`; ob.forEach((o,i)=>{ t+=`\n${i+1}. `+OBS_F.filter(([k])=>(o[k]||"").trim()).map(([k,l])=>`${l}: ${k==="due"?fmtDate(o[k]):o[k]}`).join(" | ")+"\n"; }); }
+  return t;
+}
+async function copyText(silent){
+  const t=plainText(); let ok=false;
+  try{ await navigator.clipboard.writeText(t); ok=true; }
+  catch(e){ const ta=document.createElement("textarea"); ta.value=t; document.body.appendChild(ta); ta.select(); try{ ok=document.execCommand("copy"); }catch(_){} ta.remove(); }
+  if(!silent) toast(ok?"התשובות הועתקו ללוח ✓":"ההעתקה נכשלה");
+  return ok;
+}
+async function mailTo(){
+  const to=(state.details.sendTo||"").trim(), co=(state.details.company||"").trim();
+  const subject=`${M.title}${co?" – "+co:""}`;
+  let body=plainText(); const LIMIT=1800;
+  if(encodeURIComponent(body).length>LIMIT){
+    const note="\n\n[…ההודעה קוצרה בגלל מגבלת אורך של קישור מייל. הנוסח המלא הועתק ללוח: הדביקו אותו כאן, או צרפו את קובץ ה־CSV.]";
+    let lo=0, hi=body.length;
+    while(lo<hi){ const mid=(lo+hi+1)>>1; if(encodeURIComponent(body.slice(0,mid)+note).length<=LIMIT) lo=mid; else hi=mid-1; }
+    body=body.slice(0,lo)+note;
+    const ok=await copyText(true);
+    toast(ok?"ההודעה ארוכה: הנוסח המלא הועתק ללוח, אפשר להדביק אותו במייל":"ההודעה קוצרה. מומלץ לצרף את קובץ ה־CSV");
+  }
+  location.href=`mailto:${encodeURIComponent(to).replace(/%40/g,"@")}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+function resetAll(){
+  if(!confirm("לאפס את כל התשובות? הפעולה תמחק את המידע השמור בדפדפן זה. מומלץ להוריד CSV לפני כן.")) return;
+  localStorage.removeItem(KEY); state={details:{},q:{},obs:[newObs(),newObs(),newObs()],step:0};
+  fillInputs(); renderObs(); progress(); go(0); toast("השאלון אופס");
+}
+let tT; function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove("on"),3600); }
+
+
+/* ---------- submit (FormSubmit) ---------- */
+const ENDPOINT = "https://formsubmit.co/ajax/" + ["yagel.shrayber","gmail.com"].join("@");
+function openSend(){
+  const D=state.details;
+  $("#sCompany").value=D.company||""; $("#sFiller").value=D.filler||""; $("#sRole").value=D.role||""; $("#sEmail").value=D.email||"";
+  const done=QS.filter(q=>isAns(q.id)).length, core=QS.filter(q=>q.type==="ליבה"&&isAns(q.id)).length;
+  $("#sendSum").innerHTML=`<span>${done}/${QS.length} שאלות נענו</span><span>${core}/${CORE_N} ליבה</span><span>${obsFilled().length} רישומי תצפית</span>`;
+  showSend("form"); $("#sendModal").classList.add("open");
+  setTimeout(()=>($("#sCompany").value?$("#sendGo"):$("#sCompany")).focus(),50);
+}
+function showSend(w){ $("#sendForm").style.display=w==="form"?"block":"none";
+  [["busy","#sendBusy"],["ok","#sendOk"],["err","#sendErr"]].forEach(([k,s])=>$(s).classList.toggle("on",w===k)); }
+["sCompany","sFiller","sRole","sEmail"].forEach((id,i)=>$("#"+id).addEventListener("input",e=>{
+  const k=["company","filler","role","email"][i]; state.details[k]=e.target.value; const m=$(`[data-d="${k}"]`); if(m) m.value=e.target.value; e.target.classList.remove("field-err"); save(); }));
+$("#sendGo").onclick=doSend; $("#sendRetry").onclick=doSend;
+async function doSend(){
+  const D=state.details;
+  const miss=[["sCompany","company"],["sFiller","filler"]].filter(([id,k])=>!(D[k]||"").trim());
+  if(miss.length){ miss.forEach(([id])=>$("#"+id).classList.add("field-err")); showSend("form"); toast("נא למלא שם חברה ושם ממלא/ת"); $("#"+miss[0][0]).focus(); return; }
+  if(!navigator.onLine){ showSend("err"); $("#sendErrTxt").textContent="אין חיבור לאינטרנט כרגע. התשובות שמורות במכשיר – נסו שוב כשהחיבור יחזור."; return; }
+  showSend("busy");
+  const done=QS.filter(q=>isAns(q.id)).length;
+  const fd=new FormData();
+  fd.append("_subject",`שאלון מרלו״ג נשלח: ${D.company} (${done}/${QS.length} נענו)`);
+  fd.append("_template","box"); fd.append("_captcha","false");
+  if((D.email||"").includes("@")) fd.append("_replyto",D.email.trim());
+  fd.append("חברה / אתר",D.company||""); fd.append("ממלא/ת",D.filler||""); fd.append("תפקיד",D.role||"");
+  fd.append("דוא״ל הממלא/ת",D.email||""); fd.append("תאריך מילוי",fmtDate(D.fdate)||today());
+  fd.append("התקדמות",`${done} מתוך ${QS.length} שאלות נענו; ${QS.filter(q=>q.type==="ליבה"&&isAns(q.id)).length}/${CORE_N} שאלות ליבה; ${obsFilled().length} רישומי תצפית`);
+  fd.append("נשלח בתאריך",new Date().toLocaleString("he-IL"));
+  fd.append("תשובות מלאות",plainText());
+  if($("#sCsv").checked){ try{ fd.append("attachment",new File([buildCSV()],csvName(),{type:"text/csv"})); }catch(e){} }
+  let res, data={};
+  try{
+    res=await fetch(ENDPOINT,{method:"POST",body:fd,headers:{"Accept":"application/json"}});
+    try{ data=await res.json(); }catch(e){}
+  }catch(e){ showSend("err"); $("#sendErrTxt").textContent="לא ניתן היה להתחבר לשרת השליחה. התשובות שמורות במכשיר – נסו שוב, או הורידו CSV ושלחו אותו."; return; }
+  const ok = res.ok && (data.success===true || data.success==="true");
+  if(ok){
+    state.submittedAt=new Date().toISOString(); state.submittedCount=(state.submittedCount||0)+1; save();
+    $("#sendOkTxt").textContent=`תודה ${D.filler}! התשובות (${done}/${QS.length}) נשלחו לצוות 911. אם תעדכנו תשובות בהמשך – אפשר לשלוח שוב.`;
+    showSend("ok"); updSubNote();
+  } else {
+    showSend("err");
+    $("#sendErrTxt").textContent="השרת לא אישר את השליחה"+(data.message?` (${data.message})`:"")+". התשובות שמורות – נסו שוב, או הורידו CSV ושלחו אותו.";
+  }
+}
+function updSubNote(){ const n=$("#subNote"); if(!state.submittedAt){ n.classList.remove("on"); return; }
+  n.textContent=`✓ השאלון נשלח לאחרונה ב־${new Date(state.submittedAt).toLocaleString("he-IL")}${state.submittedCount>1?` (${state.submittedCount} שליחות)`:""}. עדכונים נוספים יישלחו בשליחה הבאה.`; n.classList.add("on"); }
+
+/* ---------- PWA ---------- */
+let deferredInstall=null;
+window.addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); deferredInstall=e; $("#installBtn").classList.add("on"); });
+$("#installBtn").onclick=async()=>{ if(!deferredInstall) return; deferredInstall.prompt(); await deferredInstall.userChoice.catch(()=>{}); deferredInstall=null; $("#installBtn").classList.remove("on"); };
+window.addEventListener("appinstalled",()=>{ $("#installBtn").classList.remove("on"); toast("האפליקציה הותקנה ✓"); });
+if("serviceWorker" in navigator && location.protocol!=="file:") window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+
+/* ---------- init ---------- */
+fillInputs(); renderObs(); progress(); go(state.step||0,true); updSubNote();
+window.__q={go,state};
+})();
+</script>
+</body>
+</html>
